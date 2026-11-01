@@ -2,8 +2,8 @@
 
 ## Skill Summary
 
-`/skill-test` validates skills (`.claude/skills/*/SKILL.md`) and agents
-(`.claude/agents/*.md`). It has four modes:
+`/skill-test` validates skills (`.factory/skills/*/SKILL.md`) and agents
+(`.factory/droids/*.md`). It has four modes:
 
 - **static** `[name | all]`: runs 7 structural checks on a skill (frontmatter,
   phases, verdict keywords, ask-before-write language, next-step handoff, fork
@@ -11,14 +11,14 @@
   into `references/` files is read whole (`SKILL.md` and every references file) for
   checks 2-5; the frontmatter checks (1, 6, 7) read `SKILL.md` only. Per-skill
   results are COMPLIANT, WARNINGS, NON-COMPLIANT or NOT ASSESSED. It also runs
-  `.claude/scripts/agent-check.sh` and reports its agent and delegation lines as
+  `.factory/scripts/agent-check.sh` and reports its agent and delegation lines as
   observations that never change a verdict, and runs
-  `.claude/scripts/compat-inventory.sh` and reports each place the file depends on
-  something only Claude Code provides, by feature, the same way; given an agent
+  `.factory/scripts/compat-inventory.sh` and reports each place the file depends on
+  something only Factory Droid provides, by feature, the same way; given an agent
   name, it reports only those observations, with no verdict. Writes nothing.
 - **spec** `[skill-or-agent-name]`: resolves the name through
   `studio-tests/catalog.yaml`, reads the file and the spec at the
-  entry's `spec:` path, plus `CLAUDE.md` and every file it imports with `@path`,
+  entry's `spec:` path, plus `AGENTS.md` and every file it imports with `@path`,
   and marks each assertion — the spec's Static Assertions included, for a skill
   as for an agent — PASS / PARTIAL / FAIL / NOT ASSESSED. Case and Overall
   Verdicts are the worst result beneath them (FAIL, PARTIAL, NOT ASSESSED,
@@ -56,7 +56,7 @@ None. `/skill-test` is a meta-utility skill. No director gates apply.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -66,7 +66,7 @@ Fixture defaults.
 ### Case 1: Static Mode — Well-formed skill, all 7 checks pass, COMPLIANT
 
 **Fixture:**
-- `.claude/skills/brainstorm/SKILL.md` exists and satisfies all 7 checks:
+- `.factory/skills/brainstorm/SKILL.md` exists and satisfies all 7 checks:
   - Has all 5 required frontmatter fields
   - Has ≥2 phase headings
   - Has verdict keywords
@@ -78,7 +78,7 @@ Fixture defaults.
 **Input:** `/skill-test static brainstorm`
 
 **Expected behavior:**
-1. Skill reads `.claude/skills/brainstorm/SKILL.md` fully
+1. Skill reads `.factory/skills/brainstorm/SKILL.md` fully
 2. Skill runs all 7 structural checks
 3. Output is the single-skill block `=== Skill Static Check: /brainstorm ===`
    listing Check 1 – Check 7, each PASS
@@ -93,10 +93,10 @@ Fixture defaults.
 
 ---
 
-### Case 2: Static Mode — Skill Missing Ask-Before-Write Despite Write Tool in allowed-tools
+### Case 2: Static Mode — Skill Missing Ask-Before-Write Despite Create Tool in allowed-tools
 
 **Fixture:**
-- `.claude/skills/some-skill/SKILL.md` has `Write` in `allowed-tools` frontmatter
+- `.factory/skills/some-skill/SKILL.md` has `Create` in `allowed-tools` frontmatter
 - The body has no ask-before-write language in any form Check 4 accepts:
   no "May I write", no "before writing"/"approval" near a write instruction,
   no "ask" and "write" in the same section
@@ -105,14 +105,14 @@ Fixture defaults.
 
 **Expected behavior:**
 1. Skill reads `some-skill/SKILL.md`
-2. Check 4 (collaborative protocol) is FAIL — `Write` is in `allowed-tools` and
+2. Check 4 (collaborative protocol) is FAIL — `Create` is in `allowed-tools` and
    no ask-before-write language is found
 3. The other six checks are listed with their own results
 4. Verdict is NON-COMPLIANT, with a Recommended line naming the fix
 
 **Assertions:**
-- [ ] Check 4 is marked FAIL (not WARN — Write is in allowed-tools)
-- [ ] The Check 4 line or the Recommended line names the mismatch (Write tool without ask-before-write language)
+- [ ] Check 4 is marked FAIL (not WARN — Create is in allowed-tools)
+- [ ] The Check 4 line or the Recommended line names the mismatch (Create tool without ask-before-write language)
 - [ ] Verdict is NON-COMPLIANT
 - [ ] Other checks are shown (not only the failure)
 
@@ -126,10 +126,10 @@ Fixture defaults.
 - The sandbox's copy of that spec is the live one (9 test cases and a Static
   Assertions list) with one Static Assertion added: "Balance values link to
   their source formula or rationale" — met only by
-  `.claude/docs/coding-standards.md` (imported by `CLAUDE.md`), not by the skill
+  `.factory/docs/coding-standards.md` (imported by `AGENTS.md`), not by the skill
   or its gate files themselves. The live spec has no such line, so the copy is
   edited for the case
-- `.claude/skills/gate-check/` holds `SKILL.md` and 12 `references/` files
+- `.factory/skills/gate-check/` holds `SKILL.md` and 12 `references/` files
   (6 phase files, 6 gate files)
 - The user declines the results write
 
@@ -139,7 +139,7 @@ Fixture defaults.
 1. Skill resolves `gate-check` as a skill via the catalog and takes the spec
    path from its `spec:` field
 2. Skill reads the skill — `SKILL.md` and all 12 `references/` files — the
-   spec, `CLAUDE.md` and its `@`-imported files
+   spec, `AGENTS.md` and its `@`-imported files
 3. The spec's Static Assertions are checked against `SKILL.md` and its
    `references/` files in a
    `Static Assertions:` block before Case 1
@@ -166,7 +166,7 @@ Fixture defaults.
 ### Case 4: Audit Mode — Coverage Table of All Skills and Agents
 
 **Fixture:**
-- `.claude/skills/` contains 74 skill directories; 73 have a spec at the path
+- `.factory/skills/` contains 74 skill directories; 73 have a spec at the path
   their catalog entry names (in the sandbox, one skill's catalog `spec:` is
   emptied and its spec file removed — every live skill has a spec)
 - `catalog.yaml` has an `agents:` section with 49 entries, all with specs
@@ -176,7 +176,7 @@ Fixture defaults.
 **Expected behavior:**
 1. Both inputs run audit mode — no argument is the audit default, not a usage
    message
-2. Skill globs `.claude/skills/*/SKILL.md` for skills and reads the catalog's
+2. Skill globs `.factory/skills/*/SKILL.md` for skills and reads the catalog's
    `agents:` section for agents
 3. For each skill: Has Spec (from the catalog `spec:` path, or a glob under
    `studio-tests/skills/`), last static/category dates and
@@ -201,7 +201,7 @@ Fixture defaults.
 - `studio-tests/quality-rubric.md` has a `### gate` section with
   metrics G1–G5
 - `catalog.yaml` gives `gate-check` `category: gate`
-- `.claude/skills/gate-check/SKILL.md` meets every metric except G2 — Director
+- `.factory/skills/gate-check/SKILL.md` meets every metric except G2 — Director
   panel width (only CD-PHASE-GATE is spawned at `workflow: full`)
 - The user approves the catalog update
 
@@ -209,7 +209,7 @@ Fixture defaults.
 
 **Expected behavior:**
 1. Skill reads the `category:` from the catalog, then the `### gate` section of the rubric
-2. Skill reads the skill and the `CLAUDE.md` context, and evaluates G1–G5
+2. Skill reads the skill and the `AGENTS.md` context, and evaluates G1–G5
 3. Each metric is marked PASS, FAIL or WARN; G2 is FAIL with a quoted Gap line
 4. Report ends `Verdict: FAIL (1 failure, 0 warnings)` and a Fix line
 5. Skill asks "May I update `studio-tests/catalog.yaml` to record
@@ -228,9 +228,9 @@ Fixture defaults.
 **Fixture:**
 - `catalog.yaml` lists `creative-director` under `agents:` with
   `spec: studio-tests/agents/directors/creative-director.md`
-- `.claude/agents/creative-director.md` declares `model: opus`; there is no
-  `.claude/skills/creative-director/`
-- The spec asserts "Model tier is `opus`"
+- `.factory/droids/creative-director.md` declares `model: claude-sonnet-5-5`; there is no
+  `.factory/skills/creative-director/`
+- The spec asserts "Model is `claude-sonnet-5-5`"
 - Suppose one spec case is a redirect: the agent is asked to pick the project's
   engine. The agent's "What This Agent Must NOT Do" list says "Make engine or
   architecture choices (delegate to technical-director)"; it never restates the
@@ -242,21 +242,22 @@ Fixture defaults.
 1. Skill resolves the name through the catalog's `agents:` section — it does not
    report "Skill 'creative-director' not found"
 2. Skill reads the agent file and the agent spec
-3. Static assertions are compared exactly with the frontmatter: "Model tier is
-   `opus`" PASSES against `model: opus`, and would FAIL (not PARTIAL) against
-   `model: inherit`
+3. Static assertions are compared exactly with the frontmatter: "Model is
+   `claude-sonnet-5-5`" PASSES against `model: claude-sonnet-5-5`, and would FAIL
+   (not PARTIAL) against `model: claude-haiku-5-5`
 4. Test cases are evaluated against the agent's instructions; Protocol
    Compliance uses the spec's own list
-5. The redirect case is met: the loaded `coordination-rules.md` rule 2 covers
-   it and the agent's must-not list names technical-director — the report cites
-   both
+5. The redirect case is met: coordination rule 2 covers it, and the rule reaches
+   the agent because the Task fixture supplies it (or the agent's body states it,
+   or the agent explicitly reads `AGENTS.md`); the agent's must-not list names
+   technical-director — the report cites both
 6. Report header is `=== Agent Spec Test: creative-director ===`
 
 **Assertions:**
 - [ ] The agent is resolved and evaluated, not refused as a missing skill
 - [ ] A literal-value assertion is an exact comparison (near match = FAIL)
 - [ ] Every case and the spec's Protocol Compliance list are evaluated
-- [ ] The redirect case passes on `coordination-rules.md` plus the agent's own must-not list, both cited — the agent is not required to restate it
+- [ ] The redirect case passes on a Coordination Rule that the Task fixture, the agent's body, or an explicit `AGENTS.md` read supplies, plus the agent's own must-not list, both cited — the agent is not required to restate it. A rule that no such route supplies does not count, so the case is not met by the rule alone
 - [ ] No files are written without approval
 
 ---
@@ -264,7 +265,7 @@ Fixture defaults.
 ### Case 7: Static All — an unreadable skill is NOT ASSESSED and counted
 
 **Fixture:**
-- `.claude/skills/` holds 74 skill directories; one `SKILL.md` cannot be
+- `.factory/skills/` holds 74 skill directories; one `SKILL.md` cannot be
   read (the Read call fails — permission denied), so none of its checks can
   start. (A file that is read but whose frontmatter does not parse is a
   different case: Check 1 fails and it is NON-COMPLIANT.)
@@ -288,7 +289,7 @@ Fixture defaults.
 ### Case 8: Spec Mode — an unevaluable assertion makes the run NOT ASSESSED
 
 **Fixture:**
-- `.claude/skills/brainstorm/SKILL.md` and its spec exist
+- `.factory/skills/brainstorm/SKILL.md` and its spec exist
 - Every assertion in the spec passes except one, which names a fixture file
   the spec never defines
 - The user approves the results write
@@ -333,11 +334,11 @@ Fixture defaults.
 ### Case 10: Static Mode — a split skill is read whole, but its frontmatter comes from SKILL.md
 
 **Fixture:**
-- `.claude/skills/split-skill/SKILL.md` has all five frontmatter fields, no
+- `.factory/skills/split-skill/SKILL.md` has all five frontmatter fields, no
   `context:` key, and two phase headings (`## Phase 1: Gather`, `## Phase 2: Report`)
   that each say "Read `references/N-name.md` now and follow it". It holds no verdict
   keyword, no ask-before-write language and no next-step handoff itself
-- `.claude/skills/split-skill/references/2-report.md` holds `Verdict: **COMPLETE**`,
+- `.factory/skills/split-skill/references/2-report.md` holds `Verdict: **COMPLETE**`,
   the line "May I write this report to `production/qa/report.md`?" and a closing
   "Next step: `/gate-check`"; `references/1-gather.md` holds only instructions
 - Run A: as above. Run B: the same skill, except `argument-hint:` is missing from
@@ -393,4 +394,4 @@ Fixture defaults.
 - Audit mode counts are approximate — the exact number of skills and agents will
   change as the system grows; the fixture's numbers are illustrative.
 - A spec case that names a director gate ID has the agent evaluated against
-  `.claude/docs/director-gates/[gate-id].md`; not separately fixture-tested.
+  `.factory/docs/director-gates/[gate-id].md`; not separately fixture-tested.

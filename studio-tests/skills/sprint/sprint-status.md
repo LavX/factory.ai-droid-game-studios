@@ -2,7 +2,7 @@
 
 ## Skill Summary
 
-`/sprint-status` is a Haiku-tier read-only skill that produces a concise sprint
+`/sprint-status` is a read-only skill that produces a concise sprint
 snapshot. It uses the sprint named by its argument, or the most recently
 modified file in `production/sprints/`, and reads `production/sprint-status.yaml`
 as the source of truth for story status (falling back to markdown scanning with
@@ -43,7 +43,7 @@ None. `/sprint-status` is a read-only reporting skill; no gates are invoked.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -253,11 +253,11 @@ Fixture defaults.
 
 ## Protocol Compliance
 
-- [ ] Does NOT use Write or Edit tools (read-only skill)
+- [ ] Does NOT use Create or Edit tools (read-only skill)
 - [ ] Presents the story status table before the Burndown verdict
 - [ ] Does not ask for approval
 - [ ] Ends with at most one recommended next step
-- [ ] Declares `model: haiku` (when a declared tier is used: `.claude/docs/model-tiers.md`)
+- [ ] Sets no `model:` in frontmatter; it runs on the session model (AGENTS.md, Model Tier Assignment)
 
 ---
 

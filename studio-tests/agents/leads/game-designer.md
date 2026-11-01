@@ -9,11 +9,11 @@
 
 ## Static Assertions (Structural)
 
-Verified by reading the agent's `.claude/agents/game-designer.md` frontmatter:
+Verified by reading the agent's `.factory/droids/game-designer.md` frontmatter:
 
 - [ ] `description:` field is present and domain-specific (references core loop, progression, combat rules, economy, player-facing design — not generic)
-- [ ] `tools:` reads Read, Glob, Grep, Write, Edit, WebSearch and `disallowedTools:` lists Bash
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads Read, Glob, Grep, Create, Edit, WebSearch and omits Execute from `tools:` (the droid has no `disallowedTools:` field)
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over code implementation, visual art style, or standalone narrative lore decisions
 
 ---

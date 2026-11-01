@@ -1,0 +1,118 @@
+{
+  "statusLine": {
+    "command": "bash \"${FACTORY_PROJECT_DIR:-.}/.factory/statusline.sh\""
+  },
+  "permissionRules": {
+    "version": 1,
+    "rules": [
+      {
+        "id": "ccgs-rm-recursive-force",
+        "decision": "block",
+        "reason": "Project deny rule: recursive forced delete.",
+        "match": { "prefix": ["rm", ["-rf", "-fr", "-Rf", "-fR"]] },
+        "tests": {
+          "match": ["rm -rf build", "rm -fr out/"],
+          "noMatch": ["rm -r build", "rm build.txt"]
+        }
+      },
+      {
+        "id": "ccgs-git-reset-hard",
+        "decision": "block",
+        "reason": "Project deny rule: git reset --hard discards uncommitted work.",
+        "match": { "prefix": ["git", "reset", "--hard"] },
+        "tests": {
+          "match": ["git reset --hard", "git reset --hard HEAD~1"],
+          "noMatch": ["git reset --soft HEAD~1", "git status"]
+        }
+      },
+      {
+        "id": "ccgs-git-push-force",
+        "decision": "block",
+        "reason": "Project deny rule: force push rewrites remote history.",
+        "match": { "prefix": ["git", "push", ["--force", "--force-with-lease", "-f"]] },
+        "tests": {
+          "match": ["git push --force origin main", "git push -f origin feature"],
+          "noMatch": ["git push origin main", "git push -u origin feature"]
+        }
+      },
+      {
+        "id": "ccgs-git-clean-force",
+        "decision": "block",
+        "reason": "Project deny rule: git clean with force deletes untracked files.",
+        "match": {
+          "prefix": ["git", "clean", ["-f", "-fd", "-df", "-fdx", "-dfx", "-xdf", "-fx", "-xf", "--force"]]
+        },
+        "tests": {
+          "match": ["git clean -fd", "git clean -fdx"],
+          "noMatch": ["git clean -n", "git status"]
+        }
+      },
+      {
+        "id": "ccgs-chmod-777",
+        "decision": "block",
+        "reason": "Project deny rule: world-writable permissions.",
+        "match": { "prefix": ["chmod", "777"] },
+        "tests": {
+          "match": ["chmod 777 run.sh"],
+          "noMatch": ["chmod 755 run.sh"]
+        }
+      },
+      {
+        "id": "ccgs-allow-pytest",
+        "decision": "allow",
+        "reason": "Project allow rule: python test runs.",
+        "match": { "prefix": ["python", "-m", "pytest"] },
+        "tests": {
+          "match": ["python -m pytest tests/unit"],
+          "noMatch": ["python -m pip install pytest"]
+        }
+      },
+      {
+        "id": "ccgs-allow-py-pytest",
+        "decision": "allow",
+        "reason": "Project allow rule: py launcher test runs.",
+        "match": { "prefix": ["py", "-m", "pytest"] },
+        "tests": {
+          "match": ["py -m pytest tests/unit"],
+          "noMatch": ["py -m pip install pytest"]
+        }
+      },
+      {
+        "id": "ccgs-allow-dir",
+        "decision": "allow",
+        "reason": "Project allow rule: directory listing.",
+        "match": { "prefix": ["dir"] },
+        "tests": {
+          "match": ["dir /b"],
+          "noMatch": ["rm -r build"]
+        }
+      },
+      {
+        "id": "ccgs-allow-yaml-helper-lookups",
+        "decision": "allow",
+        "reason": "Read-only project.yaml lookups that skills run: resolve_config and the lookups yaml-helper.sh dispatches from the command line.",
+        "match": {
+          "prefix": [
+            "bash",
+            ".factory/hooks/yaml-helper.sh",
+            ["resolve_config", "resolve_setting", "get_yaml_key", "get_effective_yaml_key", "validate_yaml_enum", "validate_enum_value", "is_locally_overridable"]
+          ]
+        },
+        "tests": {
+          "match": ["bash .factory/hooks/yaml-helper.sh resolve_config review_mode", "bash .factory/hooks/yaml-helper.sh get_yaml_key engine"],
+          "noMatch": ["bash .factory/hooks/yaml-helper.sh log_decision skill point", "bash .factory/hooks/validate-write.sh resolve_config"]
+        }
+      },
+      {
+        "id": "ccgs-allow-story-status",
+        "decision": "allow",
+        "reason": "Read-only story status listing that /help and /sprint-status run first.",
+        "match": { "prefix": ["bash", ".factory/scripts/story-status.sh"] },
+        "tests": {
+          "match": ["bash .factory/scripts/story-status.sh"],
+          "noMatch": ["bash .factory/scripts/other-script.sh"]
+        }
+      }
+    ]
+  }
+}

@@ -52,7 +52,7 @@ any review mode.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -73,7 +73,7 @@ Fixture defaults.
 **Expected behavior:**
 1. No argument → `full` scope
 2. Skill reads engine, language and platform keys from `project.yaml`
-3. Skill spawns `security-engineer` via `Agent` with the fixed brief template: the scope, Godot/GDScript, `platform.multiplayer: false`, `platform.online: false`, code root `src/`, `assets/data/` and config files, the categories to run, and the report path — nothing added outside the slots
+3. Skill spawns `security-engineer` via `Task` with the fixed brief template: the scope, Godot/GDScript, `platform.multiplayer: false`, `platform.online: false`, code root `src/`, `assets/data/` and config files, the categories to run, and the report path — nothing added outside the slots
 4. Category 1 uses the Godot pattern list, including the Godot 4 name `FileAccess`; Category 2 is skipped because both platform keys are explicitly `false`, and the Executive Summary names the skip and its reason
 5. Category 6 lists `addons/gdUnit4/` in the Dependency Inventory
 6. Executive Summary shows zero findings at every severity over 42 source files; Release recommendation: **CLEAR TO SHIP**
@@ -246,7 +246,7 @@ Fixture defaults.
 ## Protocol Compliance
 
 - [ ] Reads `engine.name`, `engine.language` and the `platform.*` keys from `project.yaml` before auditing
-- [ ] Spawns `security-engineer` via `Agent` with the fixed brief template — only its named slots filled (scope, engine/language, `platform.*` values, the resolved code root, `assets/data/` and config files, the categories, the report path) — and no sentence of the orchestrator's own: no pre-rated finding, no "single-player lowers the stakes"; an unresolved code root makes the code categories NOT ASSESSED, never clean
+- [ ] Spawns `security-engineer` via `Task` with the fixed brief template — only its named slots filled (scope, engine/language, `platform.*` values, the resolved code root, `assets/data/` and config files, the categories, the report path) — and no sentence of the orchestrator's own: no pre-rated finding, no "single-player lowers the stakes"; an unresolved code root makes the code categories NOT ASSESSED, never clean
 - [ ] Uses the Phase 3 pattern set for the resolved engine; a NOT SOURCEABLE category is NOT ASSESSED and makes CLEAR TO SHIP unreachable
 - [ ] Never treats an absent `platform.multiplayer` / `platform.online` as `false`
 - [ ] Names every skipped category and why in the Executive Summary

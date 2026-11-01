@@ -9,11 +9,11 @@
 
 ## Static Assertions (Structural)
 
-Verified by reading the agent's `.claude/agents/creative-director.md` frontmatter:
+Verified by reading the agent's `.factory/droids/creative-director.md` frontmatter:
 
 - [ ] `description:` field is present and domain-specific (references creative vision, pillars, GDD alignment — not generic)
-- [ ] `tools:` reads Read, Glob, Grep, Write, Edit, WebSearch and `disallowedTools:` lists Bash
-- [ ] Model tier is `opus` — frontmatter `model:` reads exactly `opus` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads Read, Glob, Grep, Create, Edit, WebSearch and omits Execute from `tools:` (the droid has no `disallowedTools:` field)
+- [ ] Model is `claude-sonnet-5-5` with `reasoningEffort: xhigh` — frontmatter `model:` reads exactly `claude-sonnet-5-5` and `reasoningEffort:` reads exactly `xhigh` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over technical architecture or production scheduling
 
 ---

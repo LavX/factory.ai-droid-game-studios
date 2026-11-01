@@ -55,7 +55,7 @@ point this skill runs.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -158,7 +158,8 @@ Fixture defaults.
 **Fixture:**
 - Fresh project as in Case 1
 - `.git/config` has `[remote "origin"]` with url
-  `https://github.com/Donchitos/Claude-Code-Game-Studios.git`
+  `https://github.com/Donchitos/Claude-Code-Game-Studios.git` (the upstream
+  template repository, kept as an upstream link; a port clone may point elsewhere)
 - The user picks `B) Vague idea` with the hint "a small weekend puzzler", then `Save them`
 
 **Input:** `/start`

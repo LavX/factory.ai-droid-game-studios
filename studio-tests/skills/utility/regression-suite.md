@@ -41,7 +41,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 
 ## Director Gate Checks
 
-None. `/regression-suite` is a QA utility. It spawns no agents (`Agent` is not
+None. `/regression-suite` is a QA utility. It spawns no agents (`Task` is not
 in its allowed tools) and no director gates apply.
 
 ---
@@ -50,7 +50,7 @@ in its allowed tools) and no director gates apply.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---

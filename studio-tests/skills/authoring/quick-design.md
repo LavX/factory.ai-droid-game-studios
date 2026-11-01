@@ -5,7 +5,7 @@
 `/quick-design [brief description of the change]` produces a lightweight Quick
 Design Spec for a change too small for a full GDD. It first classifies the
 change as **Tuning**, **Tweak**, **Addition** or **New Small System** and
-confirms the classification with an `AskUserQuestion` whose option `[F]`
+confirms the classification with an `AskUser` whose option `[F]`
 redirects to `/design-system`. A change that introduces a system with
 significant cross-system dependencies, needs more than about a week of work, or
 alters a system's core rules is redirected to `/design-system` instead (verdict
@@ -42,7 +42,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 ## Director Gate Checks
 
 None. The skill resolves only `automation` and `workflow` (not `review_mode`),
-has no `Agent` tool in `allowed-tools`, and spawns no director or specialist
+has no `Task` tool in `allowed-tools`, and spawns no director or specialist
 agent. The review mode setting has no effect on it.
 
 ---
@@ -51,7 +51,7 @@ agent. The review mode setting has no effect on it.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -77,7 +77,7 @@ Fixture defaults.
 7. It prints the handoff block (path, type, system, GDD update status) and "Verdict: **COMPLETE**"
 
 **Assertions:**
-- [ ] The classification is confirmed via `AskUserQuestion` before any context scan or drafting
+- [ ] The classification is confirmed via `AskUser` before any context scan or drafting
 - [ ] The prior dash-cooldown spec is named in the context report even though it does not conflict
 - [ ] The draft uses the Tweak/Addition format, and its Design Delta quotes the current GDD text
 - [ ] The full draft is shown before the write approval is asked
@@ -167,7 +167,7 @@ Fixture defaults.
 
 **Expected behavior:**
 1. The skill runs its normal flow; `review_mode` is not among the keys it resolves, and nothing branches on it
-2. No agent of any kind is spawned (the skill has no `Agent` tool)
+2. No agent of any kind is spawned (the skill has no `Task` tool)
 3. The spec is drafted, approved and written after "May I write"
 4. The Pipeline Notes state that quick specs bypass `/design-review` and `/review-all-gdds` by design, and list when to redirect to `/design-system`
 5. At `workflow: minimal`, the handoff says to go straight to `/dev-story` rather than `/story-readiness`

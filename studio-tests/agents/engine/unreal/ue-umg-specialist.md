@@ -10,8 +10,8 @@
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references UMG, widget hierarchy, CommonUI)
-- [ ] `tools:` reads Read, Glob, Grep, Write, Edit, Bash — no `Agent` tool
-- [ ] Model tier is `sonnet` — frontmatter `model:` reads exactly `sonnet` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads Read, Glob, Grep, Create, Edit, Execute — no `Task` tool
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over UX flow, navigation architecture, or gameplay data logic
 
 ---

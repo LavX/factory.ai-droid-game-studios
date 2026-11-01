@@ -10,8 +10,8 @@ No gate IDs assigned.
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references accessibility / inclusive design / WCAG)
-- [ ] `tools:` list includes Read, Write, Edit, Bash, Glob, Grep
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` list includes Read, Create, Edit, Execute, Glob, Grep
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over UX flow or visual art style
 
 ---

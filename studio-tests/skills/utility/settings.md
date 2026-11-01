@@ -7,16 +7,16 @@
 <key>` (view-one), `/settings <key>=<value>` (write to `project.yaml`) and
 `/settings --local <key>=<value>` (write a personal override to the gitignored
 `project.local.yaml`). Anything else, including an empty key or value, prints
-the usage block. It runs on the Sonnet model and reads every value through
+the usage block. It runs on the session model and reads every value through
 `yaml-helper.sh` (`resolve_setting`, `get_yaml_key`, `is_locally_overridable`,
 `validate_enum_value`), so a value the `modes.rigor` preset supplies is shown as
 `(derived from rigor: <level>)` rather than "(not set)".
 
 Every write is validated against the schema enums first, then confirmed with an
-`AskUserQuestion` approval gate (`[A] Yes, write` / `[B] No, cancel`). A
+`AskUser` approval gate (`[A] Yes, write` / `[B] No, cancel`). A
 `project.yaml` write is a `schema_changes` decision, so it is confirmed even in
 `autonomous` mode. `--local` refuses a key that is not on the local-override
-whitelist. A setting that `.claude/docs/effects-map.md` marks with a
+whitelist. A setting that `.factory/docs/effects-map.md` marks with a
 `> ### RESERVED` banner is stored when asked, but every form says nothing reads
 it. The skill gives no verdict: it prints and writes configuration. No director
 gates apply.
@@ -30,9 +30,9 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 - [ ] Has required frontmatter fields: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`
 - [ ] Has ≥2 phase headings
 - [ ] No verdict keyword is required: the output is configuration, not a judgement (`/skill-test static` Check 3 gives a WARN, never a FAIL, for this skill)
-- [ ] Both write phases ask for approval with `AskUserQuestion` before the `Edit` or `Write`
+- [ ] Both write phases ask for approval with `AskUser` before the `Edit` or `Create`
 - [ ] The reserved set is derived from `effects-map.md`'s `> ### RESERVED` headings, not hardcoded
-- [ ] Points to `.claude/docs/settings-guidance.md` for which value to choose
+- [ ] Points to `.factory/docs/settings-guidance.md` for which value to choose
 
 ---
 
@@ -46,7 +46,7 @@ None. `/settings` is a configuration utility. No director gates apply.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -136,7 +136,7 @@ Fixture defaults.
 
 **Expected behavior:**
 1. `validate_enum_value modes.rigor standard` passes
-2. `AskUserQuestion` asks ``Set `modes.rigor=standard` in `project.yaml`?``
+2. `AskUser` asks ``Set `modes.rigor=standard` in `project.yaml`?``
    with `[A] Yes, write` / `[B] No, cancel`
 3. The `Edit` anchors on the `modes:` line plus the `rigor: minimal` line and
    changes only that value; no second `modes:` block is added
@@ -169,7 +169,7 @@ Fixture defaults.
 
 **Assertions:**
 - [ ] The helper's error line is shown as it is, naming the allowed values
-- [ ] No `AskUserQuestion` is asked
+- [ ] No `AskUser` is asked
 - [ ] `project.yaml` is unchanged
 
 ---
@@ -204,7 +204,7 @@ Fixture defaults.
 
 **Expected behavior:**
 1. The whitelist and enum checks pass
-2. `AskUserQuestion` asks ``Set `modes.automation=autonomous` in `project.local.yaml` (your personal override, gitignored)?``
+2. `AskUser` asks ``Set `modes.automation=autonomous` in `project.local.yaml` (your personal override, gitignored)?``
 3. `project.local.yaml` is created with the value inside its `modes:` parent
    block
 4. Confirms ``Set `modes.automation=autonomous` in `project.local.yaml` (your override).``
@@ -219,7 +219,7 @@ Fixture defaults.
 ### Case 7: Reserved setting — stored on request, flagged on every form
 
 **Fixture:**
-- `.claude/docs/effects-map.md` is the live file; pick a key whose section
+- `.factory/docs/effects-map.md` is the live file; pick a key whose section
   carries the `> ### RESERVED` banner (`accessibility.target` when this spec
   was written — re-derive it with the skill's own grep)
 - `project.yaml` does not set that key; the user answers `[A] Yes, write`
@@ -291,12 +291,12 @@ Fixture defaults.
 
 ## Protocol Compliance
 
-- [ ] Every write is preceded by an `AskUserQuestion` approval gate; `[B] No, cancel` leaves both files unchanged
+- [ ] Every write is preceded by an `AskUser` approval gate; `[B] No, cancel` leaves both files unchanged
 - [ ] Values are validated with `validate_enum_value` before the approval question
 - [ ] Values are read with `resolve_setting`, so derived values show with their rigor source
 - [ ] `--local` writes only whitelisted keys, and never creates `project.local.yaml` without a `project.yaml`
 - [ ] Reserved keys are flagged on view-all, view-one and both write paths
-- [ ] Every helper call runs from the project root in the same Bash command that sources `yaml-helper.sh`
+- [ ] Every helper call is its own plain `bash ".factory/hooks/yaml-helper.sh" <call>` command, run from the project root, with no `source` or `cd ... &&` wrapper and no `; echo $?` suffix
 
 ---
 

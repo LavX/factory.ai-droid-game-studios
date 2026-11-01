@@ -4,7 +4,7 @@
 
 `/bug-triage` turns the open bug backlog into a prioritised, sprint-assigned
 action list and writes it to `production/qa/bug-triage-[date].md` after a
-"May I write" ask. It runs on the Sonnet model. Modes: `sprint` (assign fixable
+"May I write" ask. It runs on the session model. Modes: `sprint` (assign fixable
 bugs to the current sprint, defer the rest), `full` (P1 → current sprint, P2 →
 next sprint, P3+ → backlog), `trend` (trend analysis only, no assignment, from
 header fields alone); no argument runs `sprint` if a sprint file exists, else `full`.
@@ -45,7 +45,7 @@ None. `/bug-triage` is an operational triage skill. No director gates apply.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---

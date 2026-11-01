@@ -21,7 +21,7 @@ default, via `modes.rigor: minimal`) spawns no agents; `full` is also what
 `modes.rigor: full` resolves to. Every skipped agent is announced by name in
 the output. These are drafting consultations, not gates. The skill produces an
 artifact, not a judgement, so it has no run verdict; it closes with an
-`AskUserQuestion` offering the next target or `/asset-audit`.
+`AskUser` offering the next target or `/asset-audit`.
 
 ---
 
@@ -55,7 +55,7 @@ No gate IDs and no `/gate-check`. The review mode controls drafting agents only:
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -78,7 +78,7 @@ Fixture defaults.
 2. Skill presents the context summary ("Asset Spec: Character — goblin-enemy")
 3. Phase 2 identifies the character's assets (sprite sheets such as idle, walk,
    attack, death; portrait; ability VFX; UI icon), shows them grouped by category,
-   and asks via `AskUserQuestion` before speccing
+   and asks via `AskUser` before speccing
 4. Lean mode: spawns `art-director` only, and says so: "technical-artist skipped —
    Lean mode: technical constraints not validated."
 5. Phase 4 presents one `ASSET-NNN` block per asset with the field table
@@ -87,10 +87,10 @@ Fixture defaults.
 6. After approval asks "May I write the spec to `design/assets/specs/goblin-enemy-assets.md`?"
 7. Creates the manifest after asking "May I update `design/assets/asset-manifest.md`?";
    IDs start at `ASSET-001`
-8. Phase 6 `AskUserQuestion` offers another target or `/asset-audit`
+8. Phase 6 `AskUser` offers another target or `/asset-audit`
 
 **Assertions:**
-- [ ] Asset list is confirmed with `AskUserQuestion` before any spec is generated
+- [ ] Asset list is confirmed with `AskUser` before any spec is generated
 - [ ] Only `art-director` is spawned (no `technical-artist` in lean mode)
 - [ ] The output names `technical-artist` as skipped and says technical constraints were not validated
 - [ ] Each asset block has the field table, Art Bible Anchors (by section), a Generation Prompt and `Status: Needed`
@@ -119,7 +119,7 @@ Fixture defaults.
 
 **Assertions:**
 - [ ] The "No art bible found. Run `/art-bible` first" message is shown
-- [ ] No asset list is presented and no `Agent` call is made
+- [ ] No asset list is presented and no `Task` call is made
 - [ ] No spec file or manifest is written
 - [ ] Specs are not generated with invented style rules
 
@@ -195,9 +195,9 @@ Fixture defaults.
    "Anchored to the brief's one-line art direction; there is no art bible, so colour,
    shape and asset-standard rules below are proposals, not constraints."
 2. `/art-bible` is offered once, as optional
-3. No profile found → `AskUserQuestion`: "No profile found for **hero**. Describe it
+3. No profile found → `AskUser`: "No profile found for **hero**. Describe it
    briefly" with Describe / Skip / Stop options
-4. Solo mode: no `Agent` calls; the output announces "art-director and
+4. Solo mode: no `Task` calls; the output announces "art-director and
    technical-artist skipped — Solo mode: specs derived in this session; technical
    constraints not validated."
 5. No gate IDs appear and `/gate-check` is not invoked

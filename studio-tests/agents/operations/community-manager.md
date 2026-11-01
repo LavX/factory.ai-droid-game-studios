@@ -10,8 +10,8 @@
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references player communication, patch notes, community management)
-- [ ] `tools:` reads `Read, Glob, Grep, Write, Edit` and `disallowedTools:` names `Bash` — drafts and documents only, no shell or build tools
-- [ ] Model tier is `sonnet` — frontmatter `model:` reads exactly `sonnet` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads `Read, Glob, Grep, Create, Edit` and omits `Execute` from `tools:` (the droid has no `disallowedTools:` field) — drafts and documents only, no shell or build tools
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over technical content, QA strategy, or bug fixing
 - [ ] Tone and Voice states that a brand-voice or style guide the project supplies overrides its defaults (tone, person, glossary terms)
 - [ ] For a release, it works from the patch notes release-manager produces with `/patch-notes` rather than regenerating them

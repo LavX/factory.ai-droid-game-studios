@@ -1,16 +1,16 @@
-# Claude Code Game Studios -- Complete Workflow Guide
+# Claude Code Game Studios (Factory Droid port) -- Complete Workflow Guide
 
 > **How to go from zero to a shipped game using the Agent Architecture.**
 >
 > This guide walks you through every phase of game development using the
 > 49-agent system, 74 slash commands, and 15 automated hooks. It assumes you
-> have Claude Code installed and are working from the project root.
+> have Factory Droid installed and are working from the project root.
 >
 > The pipeline has 7 phases. At `rigor: standard` and `full`, each phase has
 > a formal gate (`/gate-check`) that must pass before you advance. At
 > `rigor: minimal` -- the default -- nothing requires a gate; see
 > [The Default Path](#the-default-path-rigor-minimal). The authoritative
-> phase sequence is defined in `.claude/docs/workflow-catalog.yaml` and read
+> phase sequence is defined in `.factory/docs/workflow-catalog.yaml` and read
 > by `/help`.
 
 ---
@@ -39,9 +39,9 @@
 
 Before you start, make sure you have:
 
-- **Claude Code** installed and working
+- **Factory Droid** installed and working
 - **Git** with Git Bash (Windows) or standard terminal (Mac/Linux)
-- **jq** (optional but recommended -- hooks fall back to `grep` if missing)
+- **jq** (optional but recommended -- some hooks fall back to `grep` if missing. Without jq, the destructive-command guard (`guard-destructive.sh`) allows every call, so none of its checks run)
 - **Python 3** (required -- every skill and hook reads `project.yaml` through it; without it every setting silently falls back to its default)
 
 ### Step 1: Clone and Open
@@ -71,8 +71,9 @@ This guided onboarding asks where you are and routes you to the right phase:
 
 ### Step 3: Verify Hooks Are Working
 
-Start a new Claude Code session. You should see output from the
-`session-start.sh` hook:
+Start a new Factory Droid session. The `session-start.sh` hook prints a short
+context block. The example below is an upstream Claude Code example, not captured
+output from this port; the exact text may differ:
 
 ```
 === Claude Code Game Studios -- Session Context ===
@@ -82,8 +83,8 @@ Recent commits:
 ===================================
 ```
 
-If you see this, hooks are working. If not, check `.claude/settings.json` to
-make sure the hook paths are correct for your OS.
+If you see this, hooks are working. If not, check `.factory/hooks.json` to
+make sure the hook commands are correct for your OS.
 
 ### Step 4: Ask for Help Anytime
 
@@ -141,10 +142,13 @@ production/           # Sprint plans, milestones, releases
 
 > **Tip:** You do not need all of these on day one. Create directories as you
 > reach the phase that needs them. The important thing is to follow this
-> structure when you do create them, because the **rules system** enforces
-> standards based on file paths. Code in `src/gameplay/` gets gameplay rules,
-> code in `src/ai/` gets AI rules, and so on — and the same for C# and C++ in
-> Unity and Unreal `Gameplay/` and `AI/` folders.
+> structure when you do create them, because the **rule files** in
+> `.factory/rules/` are matched by file path. Code in `src/gameplay/` is covered
+> by `gameplay-code.md`, code in `src/ai/` by `ai-code.md`, and so on, and the
+> same for C# and C++ in Unity and Unreal `Gameplay/` and `AI/` folders. Droids
+> are told to read the matching rule file before they edit a covered path. Path
+> rules are not loaded automatically. The write hook warns on some violations
+> but never blocks them.
 
 ---
 
@@ -268,7 +272,7 @@ Or with a specific engine:
 
 - Writes engine, language, specialists, naming conventions, and performance
   budgets to `project.yaml` (the source of truth) and mirrors them to
-  `.claude/docs/technical-preferences.md` (the human-readable legacy fallback)
+  `.factory/docs/technical-preferences.md` (the human-readable legacy fallback)
 - Detects knowledge gaps (engine version newer than LLM training data) and
   advises cross-referencing `docs/engine-reference/`
 - Creates version-pinned reference docs in `docs/engine-reference/`
@@ -322,7 +326,7 @@ game has visual-asset stories; at `minimal` it is optional.
 - Recommended: a concept prototype whose REPORT.md says PROCEED
 
 This is the `full` list. `standard` and `minimal` drop items; the gate's own
-file, `.claude/skills/gate-check/references/gate-systems-design.md`, has the full
+file, `.factory/skills/gate-check/references/gate-systems-design.md`, has the full
 checklist and what each tier drops.
 
 **Verdict:** PASS / CONCERNS / NOT ASSESSED / FAIL. PASS advances the stage.
@@ -485,7 +489,7 @@ If your game has story, lore, or dialogue, this is when you build it:
   and not NOT ASSESSED, which means the GDDs could not be compared
 
 This is the `full` list. `standard` and `minimal` drop items; the gate's own
-file, `.claude/skills/gate-check/references/gate-technical-setup.md`, has the full
+file, `.factory/skills/gate-check/references/gate-technical-setup.md`, has the full
 checklist and what each tier drops.
 
 ---
@@ -608,7 +612,7 @@ gate checks.
 /test-setup
 ```
 
-Scaffolds the engine's test root, `.github/workflows/tests.yml` and one example
+Scaffolds the engine's test root, `.github/workflows/tests.yml` (created by `/test-setup`) and one example
 test; the Pre-Production gate checks for them. `/test-helpers` can follow once
 there are systems to test.
 
@@ -632,7 +636,7 @@ there are systems to test.
   (`/ux-design accessibility`, `/ux-design patterns`)
 
 This is the `full` list. `standard` and `minimal` drop items; the gate's own
-file, `.claude/skills/gate-check/references/gate-pre-production.md`, has the full
+file, `.factory/skills/gate-check/references/gate-pre-production.md`, has the full
 checklist and what each tier drops.
 
 ---
@@ -828,7 +832,7 @@ runs end to end.
   built but not yet played → NOT ASSESSED
 
 This is the `full` list. `standard` and `minimal` drop items; the gate's own
-file, `.claude/skills/gate-check/references/gate-production.md`, has the full
+file, `.factory/skills/gate-check/references/gate-production.md`, has the full
 checklist and what each tier drops.
 
 ---
@@ -1016,7 +1020,7 @@ recommendation.
 - No open S1 Critical bugs, and performance within budget
 
 This is the `full` list. `standard` and `minimal` drop items; the gate's own
-file, `.claude/skills/gate-check/references/gate-polish.md`, has the full
+file, `.factory/skills/gate-check/references/gate-polish.md`, has the full
 checklist and what each tier drops.
 
 ---
@@ -1199,7 +1203,7 @@ now; `/team-release` publishes them once the release is a GO.
   HIGH finding, and a `/localize qa` pass for every locale you ship
 
 This is the `full` list. `standard` and `minimal` drop items; the gate's own
-file, `.claude/skills/gate-check/references/gate-release.md`, has the full
+file, `.factory/skills/gate-check/references/gate-release.md`, has the full
 checklist and what each tier drops.
 
 ---
@@ -1294,8 +1298,8 @@ Bypasses normal sprint processes with a full audit trail:
 **Post-mortem** after launch stabilizes:
 
 ```
-Ask Claude to create a post-mortem using the template at
-.claude/docs/templates/post-mortem.md
+Ask Droid to create a post-mortem using the template at
+.factory/docs/templates/post-mortem.md
 ```
 
 ---
@@ -1332,7 +1336,7 @@ set wins: the flag, `project.local.yaml`, `project.yaml`, a legacy
 `production/review-mode.txt`, then the rigor default. A `review-mode.txt` left
 from an older version still overrides rigor — delete it if the mode surprises you.
 
-Full gate definitions and check pattern: `.claude/docs/director-gates.md`
+Full gate definitions and check pattern: `.factory/docs/director-gates.md`
 
 ---
 
@@ -1353,9 +1357,11 @@ Every agent interaction follows this pattern:
 See `docs/COLLABORATIVE-DESIGN-PRINCIPLE.md` for the full protocol with
 examples.
 
-### The AskUserQuestion Tool
+### The AskUser Tool
 
-Agents use the `AskUserQuestion` tool for structured option presentation.
+The main session uses the `AskUser` tool for structured option presentation.
+Droids run as subagents and cannot call `AskUser`. A droid that needs a
+decision puts the question in its report, and the main session asks you.
 The pattern is Explain then Capture: full analysis in conversation text first,
 then a clean UI picker for the decision. Use it for design choices,
 architecture decisions, and strategic questions. Do not use it for open-ended
@@ -1405,7 +1411,7 @@ The system has 15 hooks that run automatically:
 |------|---------|-------------|
 | `session-start.sh` | Session start | Shows branch, recent commits, detects active.md for recovery |
 | `detect-gaps.sh` | Session start | Detects fresh projects (no engine, no concept) and suggests `/start` |
-| `pre-compact.sh` | Before compaction | Logs the compaction (its output does not reach Claude) |
+| `pre-compact.sh` | Before compaction | Logs the compaction (its output does not reach Droid) |
 | `notify.sh` | Permission prompt, or idle about a minute | Shows Windows toast notification via PowerShell |
 | `validate-commit.sh` | Before commit | Checks design doc sections, valid JSON, hardcoded values, TODO format |
 | `validate-push.sh` | Before push, tag, merge or deploy | Warns on pushes to main, master or release/*, and on `git tag`, `git merge`, `gh release`, `butler push` and `steamcmd +run_app_build` |
@@ -1413,11 +1419,11 @@ The system has 15 hooks that run automatically:
 | `validate-write.sh` | Before a file write | Warns when a write would break a rule the skills state (never blocks) |
 | `validate-registry.sh` | Before an entity or TR-ID registry write | Warns when an entry would be deleted or renumbered, or a status is not in the header's list |
 | `validate-assets.sh` | After a file write | Checks data-file JSON, and asset naming in Godot's `assets/` |
-| `validate-skill-change.sh` | Skill file written | Advises running `/skill-test` after `.claude/skills/` changes |
+| `validate-skill-change.sh` | Skill file written | Advises running `/skill-test` after `.factory/skills/` changes |
 | `log-agent.sh` | Agent start | Logs agent invocations for audit trail |
 | `log-agent-stop.sh` | Agent stop | Completes agent audit trail (start + stop) |
-| `validate-agent-artifact.sh` | Agent stop | Warns when a subagent stops without writing the file its brief named |
-| `session-stop.sh` | **Every response ends** | Session logging and the subagent spawn tally, in the background. Despite the name it fires once per response, not once per session. |
+| `guard-destructive.sh` | Before a shell command, file write, file read, or Grep call on a `.env` path | Blocks destructive commands (forced recursive delete, `git reset --hard`, force push, `git clean -f`, `chmod 777`, `sudo`) and reads or writes of `.env` files, with the coverage and limits listed in the README. Needs `jq`; without it, allows every call |
+| `session-stop.sh` | **Every response ends** | Session logging and the subagent spawn tally. Runs synchronously. Despite the name it fires once per response, not once per session. |
 
 ### Context Resilience
 
@@ -1838,8 +1844,9 @@ conflicts go to `producer`.
    coordinate 4 agents yourself -- let `/team-combat`, `/team-narrative`,
    etc. handle the orchestration.
 
-3. **Trust the rules system.** When a rule flags something in your code, fix
-   it. The rules encode hard-won game development wisdom (data-driven values,
+3. **Trust the rules.** When a rule flags something in your code, fix
+   it. The write hook warns, and droids read the rule file for the path they
+   edit. The rules encode hard-won game development wisdom (data-driven values,
    delta time, accessibility, etc.).
 
 4. **Compact proactively.** At ~65-70% context usage, compact or `/clear`.

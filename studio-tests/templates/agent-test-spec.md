@@ -7,15 +7,15 @@ delegates vs. handles directly. Include which gates it triggers (if any).]
 
 **Domain**: [files/directories this agent owns]
 **Escalates to**: [parent agent — e.g., creative-director for design conflicts]
-**Delegates to**: [sub-agents this agent typically spawns]
+**Delegation requests**: [droids this agent names in its report for the main session to start; it cannot start them itself, since droids cannot call Task]
 
 ---
 
 ## Static Assertions (Structural)
 
-- [ ] Agent file exists at `.claude/agents/[name].md`
+- [ ] Agent file exists at `.factory/droids/[name].md`
 - [ ] Frontmatter has `name`, `description`, `model`, `tools` fields
-- [ ] Model tier is `[opus | sonnet | haiku | inherit]` — frontmatter `model:` reads exactly that alias (tiers: `.claude/docs/model-tiers.md`)
+- [ ] Model is `[claude-sonnet-5-5 with xhigh | claude-haiku-5-5 with max]` — frontmatter `model:` and `reasoningEffort:` read exactly those values (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Domain clearly stated
 - [ ] Escalation path documented
 - [ ] Does not make decisions outside its domain

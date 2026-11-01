@@ -1,0 +1,161 @@
+{
+  "SessionStart": [
+    {
+      "matcher": "startup|resume|clear|compact",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" session-start.sh",
+          "timeout": 10
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" detect-gaps.sh",
+          "timeout": 10
+        }
+      ]
+    }
+  ],
+  "PreToolUse": [
+    {
+      "matcher": "Execute",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-commit.sh",
+          "timeout": 15
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-push.sh",
+          "timeout": 10
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" guard-destructive.sh",
+          "timeout": 30
+        }
+      ]
+    },
+    {
+      "matcher": "Create|Edit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-registry.sh",
+          "timeout": 15
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-write.sh",
+          "timeout": 15
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" guard-destructive.sh",
+          "timeout": 30
+        }
+      ]
+    },
+    {
+      "matcher": "Read",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-read.sh",
+          "timeout": 10
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" guard-destructive.sh",
+          "timeout": 30
+        }
+      ]
+    },
+    {
+      "matcher": "Grep",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" guard-destructive.sh",
+          "timeout": 30
+        }
+      ]
+    },
+    {
+      "matcher": "Task",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" log-agent.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "Create|Edit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-assets.sh",
+          "timeout": 10
+        },
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" validate-skill-change.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "Notification": [
+    {
+      "matcher": "permission_prompt|idle_prompt",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" notify.sh",
+          "timeout": 10
+        }
+      ]
+    }
+  ],
+  "PreCompact": [
+    {
+      "matcher": ".*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" pre-compact.sh",
+          "timeout": 10
+        }
+      ]
+    }
+  ],
+  "Stop": [
+    {
+      "matcher": ".*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" session-stop.sh",
+          "timeout": 10
+        }
+      ]
+    }
+  ],
+  "SubagentStop": [
+    {
+      "matcher": ".*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"$FACTORY_PROJECT_DIR/.factory/hooks/run-hook.sh\" log-agent-stop.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}

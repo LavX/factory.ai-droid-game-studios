@@ -2,7 +2,7 @@
 
 ## Skill Summary
 
-`/scope-check` is a Haiku-tier read-only skill that compares a feature's,
+`/scope-check` is a read-only skill that compares a feature's,
 sprint's or milestone's original planned scope against what has actually been
 implemented. It takes the whole argument string — a feature name (which may be
 several words), a sprint number, or a milestone name — and locates the baseline
@@ -27,7 +27,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 - [ ] Has required frontmatter fields: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`
 - [ ] Has ≥2 phase headings
 - [ ] Contains verdict keywords: PASS, CONCERNS, NOT ASSESSED, FAIL
-- [ ] Does NOT require "May I write" language (the skill states it is read-only and `allowed-tools` has no Write/Edit)
+- [ ] Does NOT require "May I write" language (the skill states it is read-only and `allowed-tools` has no Create/Edit)
 - [ ] Has a next-step handoff (Phase 5: follow-up per verdict)
 
 ---
@@ -42,7 +42,7 @@ None. Scope check is a read-only advisory skill; no gates are invoked.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -201,7 +201,7 @@ Fixture defaults.
 - [ ] Emits NOT ASSESSED instead of a percentage when the baseline has no items or the current state cannot be read
 - [ ] Does not write any files
 - [ ] No director gates are invoked
-- [ ] Declares `model: haiku` (when a declared tier is used: `.claude/docs/model-tiers.md`)
+- [ ] Sets no `model:` in frontmatter; it runs on the session model (AGENTS.md, Model Tier Assignment)
 
 ---
 

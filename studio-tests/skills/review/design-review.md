@@ -7,7 +7,7 @@ design standard (Overview, Player Fantasy, Detailed Rules, Formulas, Edge
 Cases, Dependencies, Tuning Knobs, Acceptance Criteria). Which sections are
 REQUIRED depends on the workflow tier resolved for that system: all 8 at
 `full`; 5 at `standard` (plus Formulas when the system defines numeric rules).
-It gathers section presence with `.claude/scripts/gdd-structure-check.sh`,
+It gathers section presence with `.factory/scripts/gdd-structure-check.sh`,
 validates the declared dependency graph, checks internal consistency,
 implementability and cross-system fit, and produces a verdict of APPROVED,
 NEEDS REVISION, MAJOR REVISION NEEDED, or NOT ASSESSED.
@@ -17,7 +17,7 @@ review plus a `creative-director` senior synthesis (Phase 3b); `lean` runs all
 phases without agents; `solo` runs Phases 1–4 only with no next-step prompt.
 Phase 4 writes nothing. In Phase 5 it can update `design/gdd/systems-index.md`
 and append to `design/gdd/reviews/[doc-name]-review-log.md`, each only after the
-user approves via `AskUserQuestion`.
+user approves via `AskUser`.
 
 ---
 
@@ -28,7 +28,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 - [ ] Has required frontmatter fields: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`
 - [ ] Has ≥2 phase headings or numbered steps
 - [ ] Contains verdict keywords: APPROVED, NEEDS REVISION, MAJOR REVISION NEEDED, NOT ASSESSED
-- [ ] `allowed-tools` includes Write/Edit, so "May I" write-approval language is present (systems-index update, review-log append)
+- [ ] `allowed-tools` includes Create/Edit, so "May I" write-approval language is present (systems-index update, review-log append)
 - [ ] Output format is documented (review template shown in skill body)
 
 ---
@@ -37,7 +37,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -59,13 +59,13 @@ Fixture defaults.
 
 **Expected behavior:**
 1. Freshness check (`review-receipts.sh check …`) finds no receipt → full review
-2. Skill reads the target document in full and reads CLAUDE.md
-3. Skill runs `bash .claude/scripts/gdd-structure-check.sh design/gdd/light-manipulation.md`
+2. Skill reads the target document in full and reads AGENTS.md
+3. Skill runs `bash .factory/scripts/gdd-structure-check.sh design/gdd/light-manipulation.md`
 4. Skill Globs `design/gdd/` for each declared dependency
 5. Skill checks internal consistency, implementability and cross-system fit
 6. No agents are spawned (lean)
 7. Skill outputs the Phase 4 review, ending with the verdict
-8. On APPROVED, one multi-select `AskUserQuestion` offers the two tracking
+8. On APPROVED, one multi-select `AskUser` offers the two tracking
    updates; only the selected ones are written; then a final closing widget
 
 **Assertions:**
@@ -174,7 +174,7 @@ runs and the last assertion below would test nothing.)
 
 **Expected behavior:**
 1. Before spawning, skill prints "Full review: spawning specialist agents in parallel…"
-2. Skill spawns the relevant specialists in parallel as real `Agent` calls —
+2. Skill spawns the relevant specialists in parallel as real `Task` calls —
    `game-designer` (any gameplay system) and `systems-designer` (formulas) at minimum here
 3. After the specialists return, skill spawns `creative-director` as senior
    reviewer; its synthesis becomes the final verdict
@@ -182,7 +182,7 @@ runs and the last assertion below would test nothing.)
 
 **Assertions (5a):**
 - [ ] The notice is printed before any agent is spawned
-- [ ] Specialists are spawned in parallel via `Agent` (not simulated in-session)
+- [ ] Specialists are spawned in parallel via `Task` (not simulated in-session)
 - [ ] `creative-director` is spawned only after the specialists respond, and output has a "Senior Verdict [creative-director]" section
 - [ ] "Specialists consulted:" lists the agents actually spawned, and every finding carries a source tag such as `[game-designer]`
 - [ ] Specialist disagreements appear under "Specialist Disagreements"
@@ -193,13 +193,13 @@ runs and the last assertion below would test nothing.)
 
 **Assertions (5b):**
 - [ ] `--depth lean` is treated as `--review lean`, and the skill says once that the flag was renamed
-- [ ] No `Agent` call is made; the review runs in-session
+- [ ] No `Task` call is made; the review runs in-session
 - [ ] Phase 5's next-step widgets still run
 
 **Case 5c — solo:** `/design-review design/gdd/light-manipulation.md --review solo`
 
 **Assertions (5c):**
-- [ ] No `Agent` call is made
+- [ ] No `Task` call is made
 - [ ] Only Phases 1–4 run: no Phase 5 next-step prompt, so no systems-index or review-log write is offered
 
 ---
@@ -215,12 +215,12 @@ runs and the last assertion below would test nothing.)
 **Expected behavior:**
 1. No `--review` flag, so the skill takes `review_mode: lean` from the resolved
    config block at the top of the skill
-2. The review runs in-session with no `Agent` call
+2. The review runs in-session with no `Task` call
 3. Phase 5's widgets run — which `solo`, the `rigor: minimal` default, would have skipped
 
 **Assertions:**
 - [ ] The review mode comes from the resolved config block when no flag is given (`review_mode: lean (project.yaml)`)
-- [ ] No `Agent` call is made, and Phase 5's next-step widgets run — so the run is `lean`, not the `solo` default
+- [ ] No `Task` call is made, and Phase 5's next-step widgets run — so the run is `lean`, not the `solo` default
 - [ ] Variant — the same fixture with `--review solo` on the input: the flag wins over the config, and no Phase 5 widget runs
 
 ---
@@ -228,9 +228,9 @@ runs and the last assertion below would test nothing.)
 ## Protocol Compliance
 
 - [ ] Writes nothing during the review itself (Phase 4)
-- [ ] Every write (systems-index status, review-log append) happens only after an `AskUserQuestion` approval
+- [ ] Every write (systems-index status, review-log append) happens only after an `AskUser` approval
 - [ ] Presents complete findings before the verdict line
-- [ ] Outside `solo`, closes with an `AskUserQuestion` next-step widget rather than plain text (collaborative/guided modes)
+- [ ] Outside `solo`, closes with an `AskUser` next-step widget rather than plain text (collaborative/guided modes)
 
 ---
 

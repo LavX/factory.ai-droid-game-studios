@@ -10,8 +10,8 @@
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references telemetry, A/B testing, event tracking, analytics)
-- [ ] `tools:` reads `Read, Glob, Grep, Write, Edit, Bash, WebSearch` — Bash serves the data-pipeline work `description:` names; tracking in game code is excluded by the body's "What This Agent Must NOT Do" list, not by the tool list
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads `Read, Glob, Grep, Create, Edit, Execute, WebSearch` — Execute serves the data-pipeline work `description:` names; tracking in game code is excluded by the body's "What This Agent Must NOT Do" list, not by the tool list
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over game implementation, economy design, or live ops scheduling
 
 ---

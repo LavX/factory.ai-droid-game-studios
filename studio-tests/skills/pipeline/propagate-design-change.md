@@ -39,7 +39,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 ## Director Gate Checks
 
 One gate: **TD-CHANGE-IMPACT** (`technical-director`,
-`.claude/docs/director-gates/td-change-impact.md`), spawned after the Design
+`.factory/docs/director-gates/td-change-impact.md`), spawned after the Design
 Change Impact Report is presented and before the per-ADR resolution workflow.
 
 - `full` → spawned with the full impact report (change summary, classifications,
@@ -47,7 +47,7 @@ Change Impact Report is presented and before the per-ADR resolution workflow.
 - `lean` → skipped; output notes "TD-CHANGE-IMPACT skipped — Lean mode."
 - `solo` → skipped; output notes "TD-CHANGE-IMPACT skipped — Solo mode."
 
-Verdict handling: APPROVE → resolution workflow; CONCERNS → `AskUserQuestion` with
+Verdict handling: APPROVE → resolution workflow; CONCERNS → `AskUser` with
 `Revise the impact assessment` / `Accept with noted concerns` / `Discuss further`;
 REJECT → no resolution; the impact is re-analysed first; NOT ASSESSED [missing
 input] → never read as APPROVE: the input is supplied and the gate re-run, or the
@@ -60,7 +60,7 @@ and the Verdict line.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -196,10 +196,10 @@ Fixture defaults.
 
 **Expected behavior:**
 1. The Design Change Impact Report is presented
-2. `technical-director` is spawned via `Agent` with gate TD-CHANGE-IMPACT, passing
+2. `technical-director` is spawned via `Task` with gate TD-CHANGE-IMPACT, passing
    the full report
 3. CONCERNS are surfaced, naming the flagged ADR
-4. `AskUserQuestion`: `Revise the impact assessment` / `Accept with noted concerns`
+4. `AskUser`: `Revise the impact assessment` / `Accept with noted concerns`
    / `Discuss further`
 5. The per-ADR resolution workflow starts only after that answer
 

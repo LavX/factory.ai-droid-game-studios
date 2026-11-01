@@ -10,8 +10,8 @@ No gate IDs assigned.
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references Unity patterns / MonoBehaviour / subsystem decisions)
-- [ ] `tools:` list includes Read, Write, Edit, Bash, Glob, Grep
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` list includes Read, Create, Edit, Execute, Glob, Grep
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition acknowledges the sub-specialist routing table (DOTS, UI, Shader, Addressables)
 
 ---
@@ -36,7 +36,7 @@ No gate IDs assigned.
 - Confirms the project's engine from `engine.name` in `project.yaml` rather than guessing; if it is not Unity, says it is the wrong specialist for this project instead of translating
 - If `engine.name` is unset, says no engine is configured and asks which engine the project uses — it does not assume Unity
 - In a Unity project, maps the concepts: node tree → GameObject hierarchy with composed MonoBehaviours; signal → C# event or UnityEvent (consistent with its own rule to use events instead of `SendMessage()` / `Find()`)
-- Does not hand the request to a Godot specialist — its Agent grant covers only the four Unity sub-specialists
+- Does not hand the request to a Godot specialist — it can only ask the main session to start the four Unity sub-specialists, since droids cannot call Task
 
 ### Case 3: Unity version API flag
 **Input:** "Use the new Unity 6 GPU resident drawer for batch rendering."

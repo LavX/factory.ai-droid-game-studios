@@ -10,8 +10,8 @@
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references i18n, string extraction, locale pipeline, localization)
-- [ ] `tools:` reads `Read, Glob, Grep, Write, Edit, Bash` — Bash for string-extraction tooling; writing translations and narrative content is excluded by the body's "What This Agent Must NOT Do" list, not by the tool list
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads `Read, Glob, Grep, Create, Edit, Execute` — Execute for string-extraction tooling; writing translations and narrative content is excluded by the body's "What This Agent Must NOT Do" list, not by the tool list
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over narrative content, game code implementation, or translation quality
 
 ---

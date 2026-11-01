@@ -2,7 +2,7 @@
 
 ## Skill Summary
 
-`/review-all-gdds` is an Opus-tier skill that performs a holistic cross-GDD
+`/review-all-gdds` is a skill that performs a holistic cross-GDD
 review across the system GDDs in `design/gdd/`. After loading everything
 (Phase 1), it runs two independent reviews in parallel as `game-designer`
 sub-agents: Phase 2, Cross-GDD Consistency (dependency bidirectionality, rule
@@ -17,7 +17,7 @@ systems-index "Needs Revision" statuses only after the user approves.
 Each phase is a `references/N-*.md` file the skill reads before doing that phase and
 again if the conversation is compacted during it. The argument picks the focus:
 `full` (default), `consistency`, `design-theory`, or `since-last-review`, which
-takes its scope from `.claude/scripts/review-scope.sh`.
+takes its scope from `.factory/scripts/review-scope.sh`.
 
 It is invoked after individual GDDs are approved and before architecture work.
 It spawns no director gate agents. At `workflow: minimal` it does not apply (no
@@ -32,7 +32,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 - [ ] Has required frontmatter fields: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`
 - [ ] Has ≥5 phase headings (complex multi-phase skill)
 - [ ] Contains verdict keywords: PASS, NOT ASSESSED, CONCERNS, FAIL
-- [ ] `allowed-tools` includes Write, so "May I write" language is present (Phase 6 report write)
+- [ ] `allowed-tools` includes Create, so "May I write" language is present (Phase 6 report write)
 - [ ] Has a next-step handoff at the end
 - [ ] Documents parallel spawning of Phase 2 (Consistency) and Phase 3 (Design Theory)
 
@@ -50,7 +50,7 @@ review mode. It IS the holistic review; its only agents are the two
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -81,11 +81,11 @@ Fixture defaults.
    given the pasted GDD content for its slice (not file paths) and its checklist (2a–2f / 3a–3g)
 5. Phase 4 walks 3–5 multi-system scenarios
 6. Report shows no blocking issues and no warnings; verdict PASS
-7. `AskUserQuestion`: "May I write this review to `design/gdd/gdd-cross-review-[date].md`?"
+7. `AskUser`: "May I write this review to `design/gdd/gdd-cross-review-[date].md`?"
 8. Closing widget built from project state
 
 **Assertions:**
-- [ ] Phase 2 and Phase 3 are spawned in parallel (both `Agent` calls issued before either result is awaited)
+- [ ] Phase 2 and Phase 3 are spawned in parallel (both `Task` calls issued before either result is awaited)
 - [ ] Sub-agent prompts carry the GDD section content, not just file paths
 - [ ] The report states the covered set: `GDDs reviewed: [N] of [M] present` and `Not read: none`, and lists the scenarios walked
 - [ ] Verdict is PASS only because there are no blocking issues **and no warnings**, over three readable GDDs — a single warning would make it CONCERNS
@@ -111,7 +111,7 @@ Fixture defaults.
 2. Report prints a `🔴 Rule Contradiction` entry quoting both rules and asking which GDD is authoritative
 3. The issue sits under Consistency Issues → Blocking; both GDDs appear in "GDDs Flagged for Revision"
 4. Verdict: FAIL, with "If FAIL — required actions before re-running"
-5. After the report write question, a second `AskUserQuestion` offers to mark the flagged GDDs `Needs Revision` in `systems-index.md`
+5. After the report write question, a second `AskUser` offers to mark the flagged GDDs `Needs Revision` in `systems-index.md`
 
 **Assertions:**
 - [ ] Verdict is FAIL (not PASS, CONCERNS or NOT ASSESSED)
@@ -205,7 +205,7 @@ Fixture defaults.
 - [ ] Review mode changes nothing: under `solo` the two `game-designer` sub-agents still run
 - [ ] Output contains no "Gate: [GATE-ID]" or "[GATE-ID] skipped" entries
 - [ ] The skill produces a verdict in both modes
-- [ ] The only `Agent` spawns in the run are the Phase 2 and Phase 3 `game-designer` sub-agents
+- [ ] The only `Task` spawns in the run are the Phase 2 and Phase 3 `game-designer` sub-agents
 
 ---
 
@@ -267,19 +267,19 @@ Fixture defaults.
 - `design/gdd/` holds `game-pillars.md`, `systems-index.md`, a committed `gdd-cross-review-2025-01-15.md`, and four system GDDs: `combat.md`, `inventory.md`, `crafting.md`, `status-effects.md`
 - Only `combat.md` has been modified since that report was committed; its `## Dependencies` section names `inventory.md`
 - `crafting.md` and `status-effects.md` are unchanged and no changed GDD names them
-- `.claude/scripts/review-scope.sh` prints `PRIOR_REVIEW: design/gdd/gdd-cross-review-2025-01-15.md`, `CHANGED:` with `design/gdd/combat.md`, and a `DEPS` line `combat.md -> inventory.md`
+- `.factory/scripts/review-scope.sh` prints `PRIOR_REVIEW: design/gdd/gdd-cross-review-2025-01-15.md`, `CHANGED:` with `design/gdd/combat.md`, and a `DEPS` line `combat.md -> inventory.md`
 
 **Input:** `/review-all-gdds since-last-review`
 
 **Expected behavior:**
-1. After the manifest, the run executes `bash .claude/scripts/review-scope.sh` rather than working out the changed set from `git log` or `git diff` itself
+1. After the manifest, the run executes `bash .factory/scripts/review-scope.sh` rather than working out the changed set from `git log` or `git diff` itself
 2. Scope is the `CHANGED` set plus the GDDs named on the `DEPS` lines: `combat.md` and `inventory.md`; the run shows the user which GDDs are in scope before any full read
 3. Only those two GDDs get the Phase 1c section load; `crafting.md` and `status-effects.md` are not loaded, and no second dependency-expansion pass is made
 4. The report states `GDDs reviewed: 2 of 4 present`
 5. Phases 2 and 3 run over the two in-scope GDDs as usual
 
 **Assertions:**
-- [ ] `bash .claude/scripts/review-scope.sh` is run, and its `CHANGED` and `DEPS` lists are used as the scope as printed
+- [ ] `bash .factory/scripts/review-scope.sh` is run, and its `CHANGED` and `DEPS` lists are used as the scope as printed
 - [ ] The run does not derive the changed set with its own git history search
 - [ ] `inventory.md` is in scope although it did not change, because `combat.md` declares it as a dependency
 - [ ] The unchanged, undeclared GDDs are not loaded and are not counted as reviewed: the report says `GDDs reviewed: 2 of 4 present`
@@ -309,7 +309,7 @@ Fixture defaults.
 5. The closing widget offers neither `/gate-check` nor `/create-architecture`: a one-pass review is not the full review either needs
 
 **Assertions (9a):**
-- [ ] Exactly one `Agent` spawn: the Phase 2 consistency sub-agent
+- [ ] Exactly one `Task` spawn: the Phase 2 consistency sub-agent
 - [ ] The design-theory phase is named as not run — never omitted silently, never reported as having found nothing
 - [ ] The verdict is `PASS (consistency only — design theory not run)`: labelled, never an unqualified PASS, and not NOT ASSESSED
 - [ ] Neither `/gate-check` nor `/create-architecture` is offered
@@ -320,7 +320,7 @@ Fixture defaults.
 **Expected behavior:** the mirror of 9a. Only the Phase 3 sub-agent is spawned (checklist 3a–3g), Phase 4 and the report still follow, and the consistency pass is named as not run.
 
 **Assertions (9b):**
-- [ ] Exactly one `Agent` spawn: the Phase 3 design-theory sub-agent
+- [ ] Exactly one `Task` spawn: the Phase 3 design-theory sub-agent
 - [ ] The `Focus:` line names consistency as not run, the verdict is `PASS (design theory only — consistency not run)`, and the session extract's `Phases not run:` line names consistency
 - [ ] Neither `/gate-check` nor `/create-architecture` is offered
 
@@ -331,10 +331,10 @@ Fixture defaults.
 - [ ] Reads each phase's `references/N-*.md` file before doing that phase, and again after a compaction or resume during it
 - [ ] Phase 2 (Consistency) and Phase 3 (Design Theory) spawned in parallel — not sequentially
 - [ ] The full analysis is shown before any write is requested
-- [ ] Does NOT write the report or update `systems-index.md` without `AskUserQuestion` approval
+- [ ] Does NOT write the report or update `systems-index.md` without `AskUser` approval
 - [ ] Verdict is one of exactly: PASS, NOT ASSESSED, CONCERNS, FAIL
 - [ ] Every issue cites the GDD, section and text involved
-- [ ] Ends with an `AskUserQuestion` handoff built from the verdict: FAIL or NOT ASSESSED → neither `/create-architecture` nor `/gate-check`; CONCERNS → `/create-architecture` only; PASS → both
+- [ ] Ends with an `AskUser` handoff built from the verdict: FAIL or NOT ASSESSED → neither `/create-architecture` nor `/gate-check`; CONCERNS → `/create-architecture` only; PASS → both
 
 ---
 

@@ -10,8 +10,8 @@
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references Unreal Engine)
-- [ ] `tools:` reads Read, Glob, Grep, Write, Edit, Bash and `Agent`, and its body tells it to start only its four sub-specialists (ue-gas, ue-blueprint, ue-replication, ue-umg), since a type list in a subagent's `tools` is ignored
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads Read, Glob, Grep, Create, Edit, Execute and does not include `Task`. The droid cannot call Task, so its report lists the four sub-specialists (ue-gas, ue-blueprint, ue-replication, ue-umg) as delegation requests the main session starts, as its Factory note and Delegation Map say
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority outside its declared domain (no art, no server infra)
 
 ---
@@ -34,7 +34,7 @@
 - Does not produce Unity C# code
 - Confirms the project's engine from `engine.name` in `project.yaml` before answering: with Unreal configured, states that the project is built in Unreal Engine 5; with it unset, asks which engine the project uses rather than assuming
 - With Unreal configured, maps the request to the Unreal equivalent its own standards prescribe: health as an Attribute Set attribute changed only through Gameplay Effects when GAS is in use, otherwise a C++ `UActorComponent` exposing a death event to Blueprint
-- Does not redirect to unity-specialist — that agent serves Unity projects only, and this agent's `Agent` grant covers only its four Unreal sub-specialists
+- Does not redirect to unity-specialist — that agent serves Unity projects only, and this agent's delegation requests cover only its four Unreal sub-specialists, which the main session starts
 
 ### Case 3: Domain boundary — UE5.4 API requirement
 **Input**: "I need to use the new Motion Matching API introduced in UE5.4."
@@ -78,5 +78,5 @@
 ## Coverage Notes
 - No automated runner exists for agent behavior tests — these are reviewed manually or via `/skill-test`
 - Version-awareness (Case 3, Case 5) is the highest-risk failure mode for this agent; test regularly when engine version changes
-- Cases 3 and 5 pass only if the agent is directed to `docs/engine-reference/unreal/`; `CLAUDE.md` imports the Unreal `VERSION.md` only after `/setup-engine` selects Unreal, so the agent's own file must carry that direction
+- Cases 3 and 5 pass only if the agent is directed to `docs/engine-reference/unreal/`; `AGENTS.md` imports the Unreal `VERSION.md` only after `/setup-engine` selects Unreal, so the agent's own file must carry that direction
 - Case 4 integration with lead-programmer is a coordination test, not a technical correctness test

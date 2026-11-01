@@ -1,6 +1,6 @@
-# Contributing to Claude Code Game Studios
+# Contributing to Claude Code Game Studios (Factory Droid port)
 
-CCGS is a coordination framework for indie game development using Claude Code.
+CCGS is a coordination framework for indie game development using Factory Droid.
 Contributions are welcome — bug fixes, new skills that fill a real gap, agent
 improvements, and hook fixes. PRs that don't fit the framework's direction will
 be closed without lengthy explanation.
@@ -25,12 +25,15 @@ merged here — keep those in your own repo.
 These are the things that will get your PR rejected if you miss them.
 
 **Skill files**
-- Skills live in `.claude/skills/<name>/SKILL.md` — the subdirectory format is
-  required. Flat `.md` files are silently ignored by Claude Code.
-- SKILL.md must include YAML frontmatter: `name`, `description`,
-  `argument-hint`, `allowed-tools`, and `model`
-- Model tier: `haiku` for read-only status checks, `opus` for multi-document
-  synthesis and phase gates, `sonnet` for everything else
+- A skill is a directory that contains a `SKILL.md` file, at
+  `.factory/skills/<name>/SKILL.md`.
+- SKILL.md must include YAML frontmatter with `name` and `description`. The
+  skills in this port also set `argument-hint`, `allowed-tools` and
+  `user-invocable`.
+- Do not add a `model:` field. Skills have no model setting and run on the
+  session model. Droids set their models in `.factory/droids/`: the three
+  directors use `claude-sonnet-5-5` with `reasoningEffort: xhigh`, and the
+  other droids use `claude-haiku-5-5` with `reasoningEffort: max`
 
 **Hooks**
 - Use `grep -E` — never `grep -P` (Perl regex breaks on Windows Git Bash)
@@ -46,8 +49,9 @@ These are the things that will get your PR rejected if you miss them.
 
 **Reference docs**
 - If your PR adds or changes a skill, agent, or hook, update the matching
-  reference doc (agent-roster, skills-reference, hooks-reference, or
-  rules-reference). PRs that add things without updating the index will be
+  reference doc in `.factory/docs/` (`agent-roster.md`, `skills-reference.md`,
+  `rules-reference.md`, or `hooks-reference.md`). The hook wiring itself is in
+  `.factory/hooks.json`. PRs that add things without updating the index will be
   sent back.
 
 ## The Collaborative Principle
@@ -61,7 +65,7 @@ or writing files unilaterally, it won't be merged.
 
 ## Testing Your Changes
 
-Run it in a Claude Code session and confirm it works end-to-end. For skills,
+Run it in a Factory Droid session and confirm it works end-to-end. For skills,
 invoke the skill and verify the output matches what the skill claims to do.
 For hooks, trigger the relevant event and confirm the hook fires correctly
 and exits cleanly.
@@ -76,7 +80,7 @@ Use [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 feat: add /retrospective skill for end-of-sprint reviews
 fix: correct grep -P usage in session-start hook
-docs: update skills-reference with new /qa-plan entry
+docs: update .factory/docs/skills-reference.md with new /qa-plan entry
 ```
 
 Types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`

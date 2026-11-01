@@ -59,7 +59,7 @@ Full flow only (`workflow: standard` or `full`):
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -91,7 +91,7 @@ Fixture defaults.
 
 **Assertions:**
 - [ ] Exactly 3 concept options are presented
-- [ ] CD-PILLARS and AD-CONCEPT-VISUAL are issued as simultaneous `Agent` calls
+- [ ] CD-PILLARS and AD-CONCEPT-VISUAL are issued as simultaneous `Task` calls
 - [ ] TD-FEASIBILITY spawns before scope tiers are defined; PR-SCOPE after
 - [ ] "May I write it to `design/gdd/game-concept.md`?" is asked before writing
 - [ ] The concept document includes a Visual Identity Anchor section
@@ -146,7 +146,7 @@ Fixture defaults.
 
 **Assertions:**
 - [ ] All 4 skip notes appear, each naming its gate and "Lean mode"
-- [ ] No `Agent` call is made for any director
+- [ ] No `Task` call is made for any director
 - [ ] "May I write" is still asked before writing
 - [ ] Verdict is COMPLETE
 
@@ -228,7 +228,7 @@ Fixture defaults.
 
 **Assertions:**
 - [ ] All 4 skip notes appear, each naming its gate and "Solo mode" (not "Lean mode")
-- [ ] No `Agent` call is made for any director
+- [ ] No `Task` call is made for any director
 - [ ] The concept is written only after the user's approval
 - [ ] Verdict is COMPLETE
 

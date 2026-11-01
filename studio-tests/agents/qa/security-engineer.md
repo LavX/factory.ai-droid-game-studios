@@ -10,8 +10,8 @@ No gate IDs assigned. Escalates critical vulnerabilities to technical-director.
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references anti-cheat / security / vulnerability assessment)
-- [ ] `tools:` list includes Read, Write, Edit, Bash, Glob, Grep
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` list includes Read, Create, Edit, Execute, Glob, Grep
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over game logic design or server deployment
 
 ---
@@ -26,7 +26,7 @@ No gate IDs assigned. Escalates critical vulnerabilities to technical-director.
 - Recommends: encryption for sensitive fields (e.g., AES-256) and a keyed integrity checksum (e.g., HMAC) for tamper detection
 - Produces a prioritized finding list (CRITICAL / HIGH / MEDIUM / LOW)
 - Gives each finding the `/security-audit` per-finding fields its Findings Format names: ID and title, category, `file:line`, description, attack scenario, remediation, effort
-- Does NOT change the save system code as part of the review — presents the findings first; if it offers to implement the hardening itself (securing save files is one of its Core Responsibilities), it proposes the change and asks "May I write this to [filepath]?" before any Write/Edit
+- Does NOT change the save system code as part of the review — presents the findings first; if it offers to implement the hardening itself (securing save files is one of its Core Responsibilities), it proposes the change and asks "May I write this to [filepath]?" before any Create/Edit
 
 ### Case 2: Out-of-domain request — redirects correctly
 **Input:** "Design the matchmaking algorithm to pair players by skill rating."

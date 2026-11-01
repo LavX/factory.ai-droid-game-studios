@@ -10,8 +10,8 @@
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references Blueprint architecture and optimization)
-- [ ] `tools:` list matches the agent's role (Read/Write/Edit for Blueprint-facing files; no server or deployment tools, and Bash withheld via `disallowedTools:`)
-- [ ] Model tier is `sonnet` — frontmatter `model:` reads exactly `sonnet` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` list matches the agent's role (Read/Create/Edit for Blueprint-facing files; no server or deployment tools, and Execute omitted from `tools:`)
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over C++ implementation decisions
 
 ---

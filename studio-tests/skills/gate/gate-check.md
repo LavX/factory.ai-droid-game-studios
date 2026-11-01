@@ -4,9 +4,9 @@
 
 `/gate-check` validates whether the project is ready to advance to the next
 development phase. It resolves artifact existence with
-`.claude/scripts/artifact-check.sh`, spot-reads the artifacts the verdict turns
+`.factory/scripts/artifact-check.sh`, spot-reads the artifacts the verdict turns
 on, runs the target gate's quality checks (loaded from one file under
-`.claude/skills/gate-check/references/`), asks the user about unverifiable
+`.factory/skills/gate-check/references/`), asks the user about unverifiable
 items, runs a director panel whose existence is set by `review_mode` and whose
 width is set by `workflow`, and produces a PASS / CONCERNS / NOT ASSESSED / FAIL
 verdict. On PASS with user confirmation it writes the new stage to
@@ -36,7 +36,7 @@ Checked against the SKILL.md by `/skill-test spec` — no fixture needed.
 
 Every case's `project.yaml` sets `modes.rigor: minimal` and
 `modes.automation: collaborative`, with no `project.local.yaml`, unless its own
-Fixture says otherwise. Rules: `studio-tests/CLAUDE.md` §
+Fixture says otherwise. Rules: `studio-tests/AGENTS.md` §
 Fixture defaults.
 
 ---
@@ -59,8 +59,8 @@ Fixture defaults.
 **Input:** `/gate-check systems-design`
 
 **Expected behavior:**
-1. Skill loads only `.claude/skills/gate-check/references/gate-systems-design.md`
-2. Skill runs `bash .claude/scripts/artifact-check.sh --phase concept` to resolve
+1. Skill loads only `.factory/skills/gate-check/references/gate-systems-design.md`
+2. Skill runs `bash .factory/scripts/artifact-check.sh --phase concept` to resolve
    existence, then spot-reads `design/gdd/game-concept.md` to confirm it has real
    content (not a template skeleton)
 3. Skill checks pillars, the Visual Identity Anchor, core loop and target audience
@@ -132,7 +132,7 @@ Fixture defaults.
 **Expected behavior:**
 1. Skill takes the current stage from the resolved config block (legacy
    `production/stage.txt` mirror) / project-stage-detect heuristics
-2. Skill confirms with `AskUserQuestion`: "Detected stage: **Concept**. Running
+2. Skill confirms with `AskUser`: "Detected stage: **Concept**. Running
    gate for Concept → Systems Design transition. Is this correct?" with options
    `[A] Yes — run this gate` / `[B] No — pick a different gate`
 3. On `[A]`, skill runs the Concept → Systems Design checks
@@ -140,7 +140,7 @@ Fixture defaults.
 
 **Assertions:**
 - [ ] Current stage comes from `production/stage.txt` (via the resolved config block) or project-stage-detect heuristics
-- [ ] Skill confirms the detected transition with `AskUserQuestion` before running checks — this step is never skipped when no argument is given
+- [ ] Skill confirms the detected transition with `AskUser` before running checks — this step is never skipped when no argument is given
 - [ ] The full list of six gates is shown only if the user picks `[B] No — pick a different gate`
 - [ ] Output header names both phases: "Gate Check: Concept → Systems Design"
 
@@ -210,7 +210,7 @@ CONCERNS or FAIL (FAIL and CONCERNS are evaluated before NOT ASSESSED), with
 **Assertions (5a):**
 - [ ] Skill reads the resolved `review_mode` before deciding whether the panel runs
 - [ ] All 4 PHASE-GATE directors are spawned (panel width comes from `workflow: full`)
-- [ ] Directors are spawned in parallel (all `Agent` calls issued before any result is awaited)
+- [ ] Directors are spawned in parallel (all `Task` calls issued before any result is awaited)
 - [ ] A CONCERNS verdict from any one director propagates to at least CONCERNS overall
 - [ ] A NOT READY verdict from any director makes the overall verdict at least FAIL — never auto-PASS
 - [ ] A director's NOT ASSESSED is never counted as READY: with no NOT READY or CONCERNS alongside it, the overall verdict is NOT ASSESSED, and the Director Panel summary shows it for that director

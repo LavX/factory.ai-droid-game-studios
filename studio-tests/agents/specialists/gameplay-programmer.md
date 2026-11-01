@@ -10,8 +10,8 @@ No gate IDs assigned.
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references game mechanics / player systems)
-- [ ] `tools:` list includes Read, Write, Edit, Bash, Glob, Grep — excludes tools only needed by orchestration agents
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` list includes Read, Create, Edit, Execute, Glob, Grep — excludes tools only needed by orchestration agents
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over UI, AI behavior, or engine/rendering code
 
 ---

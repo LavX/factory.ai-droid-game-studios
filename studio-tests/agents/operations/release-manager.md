@@ -3,16 +3,16 @@
 ## Agent Summary
 - **Domain**: Release pipeline (Build → Test → Cert → Submit → Verify → Launch), platform certification checklists scoped by `platform.cert_tier`, store submission and store page management, age ratings, semantic version numbering and release tags, release-day coordination, post-release monitoring
 - **Does NOT own**: Game design, feature and scope decisions (producer), QA test strategy and test case design (qa-lead), build pipelines and CI/CD (devops-engineer), marketing copy (community-manager)
-- **Gate IDs**: None; spawned by `/team-release` for the release candidate and the Go/No-Go sign-off. Its blocking output is a `NOT READY` Go/No-Go verdict from the preloaded `/release-checklist`, reported to producer
+- **Gate IDs**: None; spawned by `/team-release` for the release candidate and the Go/No-Go sign-off. Its blocking output is a `NOT READY` Go/No-Go verdict from the `/release-checklist` skill it reads itself (upstream preloaded it), reported to producer
 
 ---
 
 ## Static Assertions (Structural)
 
 - [ ] `description:` field is present and domain-specific (references release pipeline, certification, store submission)
-- [ ] `tools:` reads `Read, Glob, Grep, Write, Edit, Bash` — Bash for release tagging ("Version tags must be applied to the git repository at every release point")
-- [ ] `skills:` preloads `release-checklist`, `changelog` and `patch-notes`
-- [ ] Model tier is `inherit` — frontmatter `model:` reads exactly `inherit` (tiers: `.claude/docs/model-tiers.md`)
+- [ ] `tools:` reads `Read, Glob, Grep, Create, Edit, Execute` — Execute for release tagging ("Version tags must be applied to the git repository at every release point")
+- [ ] No `skills:` field; the Factory note says to read `release-checklist`, `changelog` and `patch-notes` before starting (upstream preloaded them)
+- [ ] Model is `claude-haiku-5-5` with `reasoningEffort: max` — frontmatter `model:` reads exactly `claude-haiku-5-5` and `reasoningEffort:` reads exactly `max` (port model table: AGENTS.md, Model Tier Assignment)
 - [ ] Agent definition does not claim authority over QA strategy, game design, or build infrastructure
 - [ ] Its next-step offer runs `/patch-notes [version]` itself and hands the result to community-manager for the announcement — never a brief for community-manager to write the patch notes
 - [ ] The pipeline's Test step takes the release gate's tier: QA sign-off at `workflow: full` (recommended at `standard`), no open S1 at any tier, no open S2 or S3 either at `full`
@@ -25,7 +25,7 @@
 **Input context**: `project.yaml` sets `platform.cert_tier: console`; the game ships on Nintendo Switch.
 **Input**: "Generate the certification checklist for our Nintendo Switch submission."
 **Expected behavior**:
-- Emits the console certification block its preloaded `/release-checklist` defines for `cert_tier: console` — TRC/TCR/Lotcheck requirements checklist, first-party submission, achievement/trophy integration, parental controls, save-data rules (corruption, full storage, user switching), age ratings — plus the console device requirements (controller prompts, suspend/resume, user switching, connectivity loss, storage full)
+- Emits the console certification block the `/release-checklist` skill it reads itself defines for `cert_tier: console` — TRC/TCR/Lotcheck requirements checklist, first-party submission, achievement/trophy integration, parental controls, save-data rules (corruption, full storage, user switching), age ratings — plus the console device requirements (controller prompts, suspend/resume, user switching, connectivity loss, storage full)
 - Tracks every requirement individually with pass / fail / not-applicable status (Platform Certification Requirements)
 - Emits no itch.io or Steamworks certification rows — the certification block follows `cert_tier`, not the platform named in the request
 - Ends with the Go / No-Go line in `/release-checklist`'s three words (READY / NOT ASSESSED / NOT READY, first match wins) — here NOT ASSESSED or NOT READY, never READY, because the fixture supplies no build or test evidence — and asks "May I write this to `production/releases/release-checklist-[version].md`?" before writing
