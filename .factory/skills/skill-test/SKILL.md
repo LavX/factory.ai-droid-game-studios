@@ -145,8 +145,8 @@ The skill must end with a recommended next action or follow-up path. Look for:
 
 ### Check 6 — Context Field
 Factory skills always run in the main session, so a `context:` field in frontmatter
-(such as `context: fork`, a Claude Code setting) has no effect here. Phase count does
-not affect this check.
+(such as `context: fork`, a setting from the upstream framework) has no effect here.
+Phase count does not affect this check.
 
 **WARN** if frontmatter contains a `context:` field, because Factory ignores it.
 
@@ -180,8 +180,6 @@ them under `Observations:`, judging each:
 
 If the script cannot run, write `Observations: not run (<reason>)`. Never leave
 the section out: a missing section reads the same as a clean one.
-
-### Compatibility Observations: removed (`compat-inventory.sh` inventories Claude Code features and is not ported to Factory, so this check is not run and no `Compatibility:` section is reported).
 
 ---
 

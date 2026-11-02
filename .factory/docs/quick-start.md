@@ -52,8 +52,7 @@ There are three tiers of agents:
 The tiers are seniority of role. The three directors run on `claude-sonnet-5-5`
 with reasoning effort `xhigh`. The other 46 droids run on `claude-haiku-5-5` with
 reasoning effort `max`. Skills run on your session's model. Per-droid settings
-are in `.factory/droids/`. `.factory/docs/model-tiers.md` is upstream Claude Code
-reference only and does not describe Droid's models.
+are in `.factory/droids/`.
 
 ### 2. Pick the Right Agent for the Job
 
@@ -315,7 +314,6 @@ project.yaml                       -- Machine-readable project config (engine, m
     directory-structure.md         -- Project directory layout
     workflow-catalog.yaml          -- 7-phase pipeline definition (read by /help)
     setup-requirements.md          -- System prerequisites (Git Bash, jq, Python)
-    settings-local-template.md     -- Personal settings.local.json guide
     AGENTS-local-template.md       -- Personal AGENTS.local.md guide (gitignored overrides)
     templates/                     -- 62 document templates (+ per-section guidance)
 ```

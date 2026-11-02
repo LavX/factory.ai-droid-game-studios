@@ -170,7 +170,8 @@ fi
 # as a fully documented one.
 #
 # Only the ROOT is engine-specific. The `core/`, `engine/` and `gameplay/`
-# sub-layout is CCGS's own convention, unchanged by the engine, so it stays
+# sub-layout is Game Studios' own convention, unchanged by the engine, so it
+# stays
 # literal.
 #
 # Resolved AFTER the fresh-project early-exit, so a brand-new project never

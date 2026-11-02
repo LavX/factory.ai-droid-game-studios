@@ -22,7 +22,7 @@
 
 ## Model Tier Assignment
 
-Skills in this copy do not set a model. They run on the session model, and the upstream `model:` lines were removed. Droids set their own model in `.factory/droids/`. The three directors run on `claude-sonnet-5-5` with `reasoningEffort: xhigh`, and the other 46 droids run on `claude-haiku-5-5` with `reasoningEffort: max`. Factory's models page lists xhigh and max. Droid's subagent docs describe `reasoningEffort` in droid frontmatter as accepting low, medium, or high. `.factory/docs/model-tiers.md` describes the upstream tier table. It is kept as reference only and does not describe Droid's models.
+Skills in this copy do not set a model. They run on the session model, and the upstream `model:` lines were removed. Droids set their own model in `.factory/droids/`. The three directors run on `claude-sonnet-5-5` with `reasoningEffort: xhigh`, and the other 46 droids run on `claude-haiku-5-5` with `reasoningEffort: max`. Factory's models page lists xhigh and max. Droid's subagent docs describe `reasoningEffort` in droid frontmatter as accepting low, medium, or high.
 
 ## Subagents vs Agent Teams
 
@@ -41,7 +41,7 @@ Phase 1 loads the GDDs and both depend on it, so it is the one phase here that
 must NOT be parallelised.
 
 ### Agent Teams (experimental, opt-in)
-Not set up in this copy. The upstream feature needs an experimental flag that this copy has not mapped to Droid. Do not propose agent teams until that mapping is confirmed. `.factory/docs/agent-teams.md` is upstream reference only.
+Not set up in this copy. The upstream feature needs an experimental flag that this copy has not mapped to Droid. Do not propose agent teams until that mapping is confirmed.
 
 ## Parallel Droid Protocol
 

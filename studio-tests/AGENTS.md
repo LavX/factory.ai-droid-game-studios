@@ -1,7 +1,7 @@
 # Studio Tests — Droid Instructions
 
-This folder is the quality assurance layer for the Claude Code Game Studios skill/agent
-framework, as ported to Factory Droid. It is self-contained and separate from any game project.
+This folder is the quality assurance layer for the Game Studios skill/agent framework, as
+ported to Factory Droid. It is self-contained and separate from any game project.
 
 ## Key files
 
@@ -128,7 +128,7 @@ correct the spec toward the right behavior, not toward what the skill currently 
 
 ## This folder is deletable
 
-Nothing in `.factory/` imports from here, and every other CCGS skill and agent works
+Nothing in `.factory/` imports from here, and every other Game Studios skill and agent works
 without it — but `/skill-test` and `/skill-improve` read it by path. Without it,
 `/skill-test static` still works, `/skill-test spec` and `/skill-test category`
 stop working, `/skill-test audit` reports that no catalog exists, and

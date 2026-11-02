@@ -1,6 +1,6 @@
 #!/bin/bash
 # Hook helper: yaml-helper.sh
-# Purpose: Shared YAML reading helper for CCGS hooks and skill orchestrators.
+# Purpose: Shared YAML reading helper for Game Studios hooks and skill orchestrators.
 # Cross-platform: Windows Git Bash compatible.
 #
 # Provides:
@@ -1673,9 +1673,9 @@ EOF
   if [ "$bare" = "1" ]; then
     :
   elif [ -n "$want" ]; then
-    echo "=== CCGS Config (resolved: local->yaml->legacy->default; use as-is) ==="
+    echo "=== Game Studios Config (resolved: local->yaml->legacy->default; use as-is) ==="
   else
-    echo "=== CCGS Resolved Config ==="
+    echo "=== Game Studios Resolved Config ==="
   fi
   for pair in modes.rigor:rigor \
               modes.review_mode:review_mode \
@@ -2055,7 +2055,7 @@ EOF
     echo "notes: ${notes:-none}"
     echo "Values above are fully resolved (local -> yaml -> legacy -> default). Use as-is."
     echo "An inline --review flag, if passed, overrides review_mode."
-    echo "=== end CCGS config ==="
+    echo "=== end Game Studios config ==="
   fi
   return 0
 }

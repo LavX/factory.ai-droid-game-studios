@@ -62,7 +62,7 @@ Read `project.yaml` to determine the following, falling back to `.factory/docs/t
   > **ABSENT DOES NOT MEAN `false`.** These keys have a reader —
   > this skill — and **no writer in the setup flow**: neither
   > `/setup-engine` nor `/start` emits a `platform:` block, and only `/settings`
-  > sets them, when someone runs it, so on most CCGS projects both keys are
+  > sets them, when someone runs it, so on most Game Studios projects both keys are
   > absent. Defaulting them to `false` would skip **Category 2 (Network and
   > Multiplayer Security) on every project, genuinely multiplayer ones
   > included** — a security category failing open on a value nothing sets.

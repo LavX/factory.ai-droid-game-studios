@@ -39,7 +39,7 @@ fi
 # description, session_id). run-hook.sh copies tool_input.subagent_type into a
 # top-level agent_type field before this script runs.
 #
-# Upstream Claude Code only, not Factory: a SubagentStart payload with agent_id
+# Upstream only, not in Factory's payload: a SubagentStart payload with agent_id
 # and agent_type. This script does not read agent_id.
 #
 # The agent name is in `agent_type`, NOT `agent_name`. Reading `.agent_name`
@@ -56,10 +56,10 @@ fi
 
 INPUT=$(cat)
 
-# An empty agent_type is not a CCGS spawn, so this hook skips it. The port has
-# not verified which Factory-internal agents send one. log-agent-stop.sh skips
-# them too, so they stay out of the spawn tally in session-stop.sh. A MISSING
-# agent_type still logs.
+# An empty agent_type is not a Game Studios spawn, so this hook skips it. The
+# port has not verified which Factory-internal agents send one.
+# log-agent-stop.sh skips them too, so they stay out of the spawn tally in
+# session-stop.sh. A MISSING agent_type still logs.
 if printf '%s' "$INPUT" | grep -qE '"agent_type"[[:space:]]*:[[:space:]]*""'; then
     exit 0
 fi

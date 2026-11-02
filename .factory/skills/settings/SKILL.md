@@ -64,7 +64,7 @@ the project permission rules in `.factory/settings.json` (rule
 `ccgs-allow-yaml-helper-lookups`), which need a trusted workspace. A compound
 command does not match those rules, so it is not pre-approved.
 
-If `.factory/hooks/yaml-helper.sh` is missing, this is not a CCGS project.
+If `.factory/hooks/yaml-helper.sh` is missing, this is not a Game Studios project.
 Report the error and exit.
 
 ## Phase 1b: Reserved-setting detection
@@ -316,7 +316,7 @@ When the effective value is empty (key not set anywhere), print just:
 
 1b. **Known-key check**: run, from the project root as in Phase 1,
    `bash .factory/scripts/config-set.sh <key> <value> --dry-run` and read its
-   `known` row. If it says `yes`, proceed. If it says `no`, nothing in CCGS reads
+   `known` row. If it says `yes`, proceed. If it says `no`, nothing in Game Studios reads
    that key, so writing it changes nothing; it is most often a typo. Do not
    write yet: say so, and ask via `AskUser` with the options
    `Use <nearest> instead` (only when the row ends `nearest: <key>`),

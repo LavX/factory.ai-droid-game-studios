@@ -169,7 +169,7 @@ Fixture defaults.
 2. Path B names `/brainstorm a small weekend puzzler` as the immediate step
 3. The card infers rigor `minimal` from "weekend" and "small"
 4. After the Phase 6 path, the skill adds once that `origin` still points at the
-   CCGS template repo, suggests `git remote rename origin template` then
+   Game Studios template repo, suggests `git remote rename origin template` then
    `git remote add origin <your repo URL>`, and says to skip `UPGRADING.md`'s own
    `git remote add template` step since that remote now exists
 5. The commands are suggested only; no git command is run

@@ -1237,7 +1237,7 @@ closing, or produces a warning and lets work continue — per test type
 > - Godot: gdunit4 coverage report (markdown export)
 > - Unity: Unity Test Framework coverage (xml export)
 > - Unreal: gcov-style coverage from clang flags
-> CCGS does not unify these — gate-check reads the engine-appropriate report.
+> Game Studios does not unify these — gate-check reads the engine-appropriate report.
 
 ---
 
@@ -1291,7 +1291,7 @@ closing, or produces a warning and lets work continue — per test type
 
 **Priority chain:** `team.size` in `project.local.yaml` → `project.yaml` → the `modes.rigor` expansion (`full` → `studio`, else `individual`) → no terminal default. Locally overridable — it is a personal-experience knob, not an on-disk artifact.
 
-> **`individual` at `minimal`/`standard`, `studio` at `full`.** CCGS's audience is
+> **`individual` at `minimal`/`standard`, `studio` at `full`.** Game Studios' audience is
 > overwhelmingly solo indie developers, so the two lighter rigor tiers resolve
 > `team.size` to `individual` — a `minimal` (default) or `standard` project gets one active agent
 > per role, not 15 (directors and leads included). Only `rigor: full` opts into the
@@ -1483,7 +1483,7 @@ must tell them apart)
 
 **Priority chain:** `accessibility.target` in `project.yaml` → hardcoded default of `none`
 
-> **Default is `none`, not `standard`.** Most CCGS users are solo devs and jam-game
+> **Default is `none`, not `standard`.** Most Game Studios users are solo devs and jam-game
 > makers — defaulting to `standard` would auto-spawn the accessibility specialist
 > for projects where it's overhead. `/start` does not ask about it; you set it with
 > `/settings`.
@@ -1686,7 +1686,7 @@ required at `standard` and `minimal` levels.
 
 | Value | Meaning | What's deactivated |
 |-------|---------|-------------------|
-| `game` | Default. Full CCGS framework applies. | Nothing |
+| `game` | Default. Full Game Studios framework applies. | Nothing |
 | `tool` | Developer tool, not a game | Skip art bible, narrative, level design, playtesting |
 | `engine` | Custom engine or library underneath games | Skip game-specific concerns entirely (narrative, art, playtest) |
 | `mod` | Mod for an existing game | Skip engine setup; assume parent engine; reduce architecture scope |
@@ -1767,7 +1767,7 @@ implementation, review, and architecture validation
 
 **Priority chain:** `commands.*` in `project.yaml` → engine-typical default → no command available
 
-> **Why explicit:** Without this block, CCGS has to guess engine-typical conventions
+> **Why explicit:** Without this block, Game Studios has to guess engine-typical conventions
 > for invoking the project. Better to be explicit per-project — covers cases where
 > projects customize their build (e.g., a Godot project using gdunit4 for tests but
 > a custom export script for builds).
@@ -2207,7 +2207,7 @@ By file size, not lines: token cost follows bytes, and one table row can be 2 KB
 
 ## updates.check
 
-**Controls:** Whether session start shows a notice when a newer upstream Claude Code Game Studios release is out.
+**Controls:** Whether session start shows a notice when a newer upstream release is out.
 
 **Values:** `true` | `false`
 
@@ -2239,30 +2239,30 @@ By file size, not lines: token cost follows bytes, and one table row can be 2 KB
 
 **Controls:** Which version of the project.yaml schema this file conforms to
 **Values:** integer
-**Default:** `1` (for v1.1 of CCGS)
+**Default:** `1` (for v1.1 of Game Studios)
 **Set by:** `/start`, `/adopt`
 **Read by:** All skills and hooks that parse project.yaml (for migration safety)
 
-> Lets future CCGS versions detect and migrate old project.yaml files. The
+> Lets future Game Studios versions detect and migrate old project.yaml files. The
 > migration logic compares `schema_version` in the file against the current
-> CCGS's expected version. If newer, warn. If older, run migrations.
+> Game Studios' expected version. If newer, warn. If older, run migrations.
 
 ---
 
 ### Migration behavior
 
-| project.yaml schema_version | Current CCGS expects | Behavior |
+| project.yaml schema_version | Current Game Studios expects | Behavior |
 |----------------------------|---------------------|----------|
 | Matches expected | — | Normal operation |
 | Lower than expected | — | `/adopt` warns and offers migration; skills run with deprecation warnings |
-| Higher than expected | — | All skills warn: "This project.yaml was created by a newer CCGS version. Some settings may be ignored." |
+| Higher than expected | — | All skills warn: "This project.yaml was created by a newer Game Studios version. Some settings may be ignored." |
 | Missing | — | Treated as legacy (pre-v1.1); migration prompted on next `/start` or `/adopt` |
 
 ---
 
 ## framework
 
-**Controls:** Tracks which CCGS version created or last touched this project
+**Controls:** Tracks which Game Studios version created or last touched this project
 **Values:** `framework.version` (semver string) + `framework.last_upgraded` (ISO date)
 **Default:** stamped in the template's `project.yaml` at each release
 **Set by:** the template; `/start` (through `set-stage.sh`), `/setup-engine` and `/gate-check` write the block into a `project.yaml` they create, and `migrate-v1-config.sh` (which `/adopt` runs) writes `framework.version` into the one it builds
@@ -2281,7 +2281,7 @@ framework:
 
 | Field | Purpose |
 |-------|---------|
-| `version` | The CCGS version that created the project (or was last updated to — see `UPGRADING.md`). |
+| `version` | The Game Studios version that created the project (or was last updated to — see `UPGRADING.md`). |
 | `last_upgraded` | ISO date of the most recent template update. |
 
 ---
@@ -2296,7 +2296,7 @@ version the project came from; `UPGRADING.md` is the upgrade path.
 
 ## Migration from v1.0 → v1.1
 
-When a v1.0 CCGS project upgrades to v1.1, migration tooling (run via `/adopt`)
+When a v1.0 Game Studios project upgrades to v1.1, migration tooling (run via `/adopt`)
 converts legacy files to `project.yaml`. This section specifies the intended
 behavior.
 

@@ -156,7 +156,7 @@ WORK_CMDS=0
 BYTE_COUNT=0
 
 block() {
-  echo "Blocked by the CCGS destructive-command guard: $1. This command is blocked by this guard. If the step is intended, ask the user to run it outside the agent." >&2
+  echo "Blocked by the Game Studios destructive-command guard: $1. This command is blocked by this guard. If the step is intended, ask the user to run it outside the agent." >&2
   exit 2
 }
 

@@ -40,7 +40,7 @@ fi
 # task_name. If no Task call matches, agent_type is absent and the record is
 # logged as "unknown".
 #
-# Upstream Claude Code only, not Factory: a SubagentStop payload with agent_id,
+# Upstream only, not in Factory's payload: a SubagentStop payload with agent_id,
 # agent_type, agent_transcript_path and last_assistant_message.
 #
 # The agent name is in `agent_type`, NOT `agent_name`. Reading `.agent_name`
@@ -56,9 +56,10 @@ fi
 
 INPUT=$(cat)
 
-# An empty agent_type is not a CCGS spawn, so this hook skips it. The port has
-# not verified which Factory-internal agents send one. log-agent.sh skips them
-# too. A MISSING agent_type is different and still logs as "unknown" below.
+# An empty agent_type is not a Game Studios spawn, so this hook skips it. The
+# port has not verified which Factory-internal agents send one. log-agent.sh
+# skips them too. A MISSING agent_type is different and still logs as "unknown"
+# below.
 if printf '%s' "$INPUT" | grep -qE '"agent_type"[[:space:]]*:[[:space:]]*""'; then
     exit 0
 fi

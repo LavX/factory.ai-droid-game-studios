@@ -1,7 +1,7 @@
 #!/bin/bash
 # Hook helper: update-check.sh
-# Purpose: one line at session start when a newer upstream release of Claude
-# Code Game Studios is out. Sourced by session-start.sh; run directly as
+# Purpose: one line at session start when a newer upstream release is out.
+# Sourced by session-start.sh; run directly as
 # `bash update-check.sh refresh` or `notice` (to see the line by hand).
 #
 #   update_check_notice
@@ -118,7 +118,7 @@ update_check_notice() {
   fi
 
   if [ -n "$latest" ] && _update_check_newer "$latest" "$UPDATE_CHECK_VERSION"; then
-    echo "Update: Claude Code Game Studios $latest is out upstream. This port is based on $UPDATE_CHECK_VERSION and is not upgraded automatically. Release notes: https://github.com/$UPDATE_CHECK_REPO/releases/latest. To stop this notice: /settings --local updates.check=false"
+    echo "Update: Game Studios $latest is out upstream. This port is based on $UPDATE_CHECK_VERSION and is not upgraded automatically. Release notes: https://github.com/$UPDATE_CHECK_REPO/releases/latest. To stop this notice: /settings --local updates.check=false"
   fi
   return 0
 }

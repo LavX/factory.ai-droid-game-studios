@@ -45,7 +45,7 @@ fi
 # The path is read from the subagent's own transcript (agent_transcript_path),
 # from its prompt only: the transcript's first user message. The rest of the
 # transcript holds what the subagent read, and a file that quotes the phrase
-# (hooks-reference.md does, with `<path>`) is not its contract. The first
+# (a doc page does, with `<path>`) is not its contract. The first
 # "Write your full output to `...`" in the prompt whose path is not a template
 # placeholder ([path], <path>, {path}, or a path holding one) is the contract.
 # A subagent whose prompt names no path is not checked. The existence check is

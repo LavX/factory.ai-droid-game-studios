@@ -140,16 +140,16 @@ Coordinate multiple agents on a single feature area:
 
 ## Overlap with Factory Droid's review command
 
-Factory Droid has its own `/review` command for local code review. Its name differs from CCGS's `/code-review`, so the two do not collide.
+Factory Droid has its own `/review` command for local code review. Its name differs from the Game Studios `/code-review`, so the two do not collide.
 
 | You type | You get | Use it for |
 |---------|---------|-----------|
-| `/code-review` | **CCGS's** project skill | Architectural review against this project's coding standards, SOLID, testability and the control manifest. Knows about ADRs, stories and `docs/architecture/`. |
-| `/review` | **Factory Droid's** command | Reviewing local changes (uncommitted, against a base branch, or one commit) for bugs, with no knowledge of CCGS's design documents or gates. |
+| `/code-review` | **Game Studios'** project skill | Architectural review against this project's coding standards, SOLID, testability and the control manifest. Knows about ADRs, stories and `docs/architecture/`. |
+| `/review` | **Factory Droid's** command | Reviewing local changes (uncommitted, against a base branch, or one commit) for bugs, with no knowledge of Game Studios' design documents or gates. |
 
-Both are useful; they answer different questions. Reach for the CCGS one during
+Both are useful; they answer different questions. Reach for the Game Studios one during
 `/dev-story` and before `/story-done`, because it checks the things the gates
 later check. Reach for `/review` when you want a general review of a diff
 that has nothing to do with a story.
 
-CCGS does **not** turn Factory's built-in skills off. To hide a built-in skill you do not want, add its name to `disabledSkills` in `~/.factory/settings.json` (user) or `<project>/.factory/settings.json` (project). `/skills` lists each skill's status. A disable at either level wins.
+Game Studios does **not** turn Factory's built-in skills off. To hide a built-in skill you do not want, add its name to `disabledSkills` in `~/.factory/settings.json` (user) or `<project>/.factory/settings.json` (project). `/skills` lists each skill's status. A disable at either level wins.

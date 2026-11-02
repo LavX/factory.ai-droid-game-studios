@@ -1,11 +1,11 @@
-# Claude Code Game Studios (Factory Droid port) -- Game Studio Agent Architecture
+# Game Studios for Factory Droid -- Game Studio Agent Architecture
 
 Indie game development managed through 49 coordinated Factory Droid subagents.
 Each agent owns a specific domain, enforcing separation of concerns and quality.
 
 ## Factory Droid Runtime Notes
 
-This copy is an unofficial port of Claude Code Game Studios (upstream release 1.2.0) to Factory Droid. It runs on Factory Droid. The framework was written for Claude Code, so these points differ from the upstream text. Pages that describe the upstream Claude Code runtime are reference only (see the Claude-only point below).
+This copy is an unofficial port of Claude Code Game Studios (upstream release 1.2.0) to Factory Droid. The upstream framework was written for Claude Code, so these points describe where this port differs from the upstream text.
 
 - **No CLAUDE.md or `.claude/` folder.** This copy has no `CLAUDE.md` and no `.claude/` folder. `AGENTS.md` replaces `CLAUDE.md`, and `.factory/` replaces `.claude/`.
 - **Agents are droids.** They live in `.factory/droids/`. The three upstream opus directors (creative-director, producer, technical-director) run on `claude-sonnet-5-5` with `reasoningEffort: xhigh`. The other 46 droids run on `claude-haiku-5-5` with `reasoningEffort: max`. Factory's models page on docs.factory.ai lists xhigh and max for both models. Droid's subagent docs describe `reasoningEffort` in droid frontmatter as accepting low, medium, or high.
@@ -38,7 +38,6 @@ This copy is an unofficial port of Claude Code Game Studios (upstream release 1.
 - **Local overrides.** Droid does not load `AGENTS.local.md`. Read it yourself, or copy the lines you need into `AGENTS.md`. Personal Droid settings go in `.factory/settings.local.json`, which is gitignored.
 - **Update check.** `session-start.sh` makes no network call. A background job asks GitHub for the latest upstream release at most once a day, when the cache is missing or a day old. The check is off by default in this port, because `project.yaml` sets `updates: check: false`. It is also off when the `CI` environment variable is set. Set `check: true` under `updates:` to turn it on. The notice names the upstream release and says that this port is not upgraded automatically.
 - **Not carried over.** The SubagentStart and InstructionsLoaded hooks (no Factory equivalent), `maxTurns` limits, `memory:` auto-loading (droids read `.factory/agent-memory/<name>/` themselves), skill preloading (droids read the listed skills), droid worktree isolation, and async hooks. The SubagentStop artifact check (`validate-agent-artifact.sh`) is not wired in this port, because Factory's SubagentStop hook docs do not list an `agent_transcript_path` field.
-- **Claude-only pages.** These pages in `.factory/docs/` document the upstream Claude Code runtime, and their text still refers to Claude Code: `hooks-reference.md`, `hooks-reference/hook-input-schemas.md`, `model-tiers.md`, `agent-teams.md`, and `settings-local-template.md`. Do not copy their settings, hook payloads, or environment variables into Droid. Droid reads `.factory/settings.json` and `.factory/hooks.json`. `CLAUDE_CODE_*` variables in any page only apply to Claude Code. `.factory/scripts/compat-inventory.sh` is kept unchanged because it inventories Claude Code features.
 - **Engine.** `project.yaml` has no engine yet. Choose one with `/setup-engine`, which also rewrites the engine reference import above.
 
 ## Technology Stack
@@ -152,7 +151,7 @@ after it runs `project.yaml` holds the real values.
 
 ## Model Tier Assignment
 
-Skills in this copy do not set a model. They run on the session model, and the upstream `model:` lines were removed. Droids set their own model in `.factory/droids/`. The three directors run on `claude-sonnet-5-5` with `reasoningEffort: xhigh`, and the other 46 droids run on `claude-haiku-5-5` with `reasoningEffort: max`. Factory's models page lists xhigh and max. Droid's subagent docs describe `reasoningEffort` in droid frontmatter as accepting low, medium, or high. `.factory/docs/model-tiers.md` describes the upstream Claude Code tier table. It is kept as reference only and does not describe Droid's models.
+Skills in this copy do not set a model. They run on the session model, and the upstream `model:` lines were removed. Droids set their own model in `.factory/droids/`. The three directors run on `claude-sonnet-5-5` with `reasoningEffort: xhigh`, and the other 46 droids run on `claude-haiku-5-5` with `reasoningEffort: max`. Factory's models page lists xhigh and max. Droid's subagent docs describe `reasoningEffort` in droid frontmatter as accepting low, medium, or high.
 
 ## Subagents vs Agent Teams
 
@@ -171,7 +170,7 @@ Phase 1 loads the GDDs and both depend on it, so it is the one phase here that
 must NOT be parallelised.
 
 ### Agent Teams (experimental, opt-in)
-Not set up in this copy. The upstream feature needs an experimental flag that this copy has not mapped to Droid. Do not propose agent teams until that mapping is confirmed. `.factory/docs/agent-teams.md` is upstream reference only.
+Not set up in this copy. The upstream feature needs an experimental flag that this copy has not mapped to Droid. Do not propose agent teams until that mapping is confirmed.
 
 ## Parallel Droid Protocol
 

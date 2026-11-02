@@ -109,7 +109,7 @@ if [ ! -f project.yaml ]; then
   Y_NEW=$(mktemp "./.ccgs-stage-XXXXXX" 2>/dev/null) || { echo "set-stage: cannot create a temporary file in $(pwd)" >&2; exit 1; }
   # /gate-check's minimal template (references/6-update-stage.md, 6.1).
   {
-    echo "# CCGS project configuration — single source of truth for project settings."
+    echo "# Game Studios project configuration — single source of truth for project settings."
     echo "# Schema: grep the \`## <key>\` section of .factory/docs/effects-map.md —"
     echo "# it is ~31k tokens whole, ~900 per section. Do not open it entire."
     echo ""

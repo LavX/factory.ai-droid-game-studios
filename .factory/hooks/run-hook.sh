@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# run-hook.sh: runs one CCGS hook script on a payload rewritten to the shape the
-# scripts expect.
+# run-hook.sh: runs one Game Studios hook script on a payload rewritten to the
+# shape the scripts expect.
 #
 # Factory Droid names the write tool Create and the shell tool Execute, uses
-# old_str, new_str, and change_all for Edit, and sends no agent_type. The CCGS
-# scripts were written for Claude Code, so this adapter translates the payload
-# and runs the script with it on stdin. It also handles droid sessions.
+# old_str, new_str, and change_all for Edit, and sends no agent_type. The Game
+# Studios scripts were written for the upstream runtime, so this adapter
+# translates the payload and runs the script with it on stdin. It also handles
+# droid sessions.
 #
 # Factory's public hook docs do not list the Edit fields old_str, new_str and
 # change_all, or the Grep fields pattern and path. The adapter passes a payload
@@ -135,8 +136,8 @@ if command -v jq >/dev/null 2>&1; then
   esac
 
   set_field '
-    def claude_tool: if . == "Create" then "Write" elif . == "Execute" then "Bash" else . end;
-    .tool_name |= (if type == "string" then claude_tool else . end)
+    def upstream_tool: if . == "Create" then "Write" elif . == "Execute" then "Bash" else . end;
+    .tool_name |= (if type == "string" then upstream_tool else . end)
     | if (.tool_input | type) == "object" then
         .tool_input |= (
           if has("old_str") and (has("old_string") | not) then . + {old_string: .old_str} else . end

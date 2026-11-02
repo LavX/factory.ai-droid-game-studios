@@ -22,6 +22,6 @@ Brief description of what this PR does.
 - [ ] I've tested this in a Factory Droid session
 - [ ] New agents include the Collaboration Protocol section
 - [ ] New skills use the subdirectory format (`.factory/skills/<name>/SKILL.md`)
-- [ ] Reference docs are updated (agent-roster, skills-reference, hooks-reference, rules-reference)
+- [ ] Reference docs are updated (agent-roster, skills-reference, rules-reference)
 - [ ] Hooks use `grep -E` (POSIX) and fail gracefully without jq/python
 - [ ] No hardcoded paths or platform-specific assumptions

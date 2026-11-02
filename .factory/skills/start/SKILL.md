@@ -200,7 +200,7 @@ Present `minimal` as the documented floor, not a lesser mode, and name its trade
 design problems show up in code.
 
 Information only, never a gate: if `origin_url` pointed at the template repo, add: "Your clone's `origin` still points at the
-CCGS template repo, so a push or pull request would go there. When you're ready, run
+Game Studios template repo, so a push or pull request would go there. When you're ready, run
 `git remote rename origin template`, then `git remote add origin <your repo URL>`. `UPGRADING.md`
 pulls updates from `template`; skip its own `git remote add template` step, since that remote now
 exists." Suggest it; do not run it.

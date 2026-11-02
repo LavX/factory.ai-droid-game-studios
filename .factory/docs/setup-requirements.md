@@ -13,7 +13,7 @@ runs at all.
 | **Git** | Version control, branch management | [git-scm.com](https://git-scm.com/) |
 | **Factory Droid** | AI agent CLI | Native installer: `curl -fsSL https://app.factory.ai/cli \| sh` (macOS, Linux) or `irm https://app.factory.ai/cli/windows \| iex` (Windows PowerShell). Homebrew: `brew install --cask droid`. npm also works: `npm install -g droid`. See [docs.factory.ai](https://docs.factory.ai) |
 | **Python 3** | Reads `project.yaml` for every skill and hook | [python.org](https://www.python.org/). Without it every setting silently falls back to its default, and a commit that stages data JSON is blocked because it cannot be validated |
-| **Bash** | Runs every hook | Built into macOS and Linux. On Windows, install [Git for Windows](https://git-scm.com/downloads/win) — Factory Droid runs without it, but no CCGS hook does |
+| **Bash** | Runs every hook | Built into macOS and Linux. On Windows, install [Git for Windows](https://git-scm.com/downloads/win) — Factory Droid runs without it, but no Game Studios hook does |
 
 ## Recommended
 
@@ -79,7 +79,7 @@ A new session starts with Autonomy Level Off, so file edits and commands wait fo
 
 The `permissionRules` in `.factory/settings.json` allow a few read-only helper commands and block some destructive ones. The hook guard in `.factory/hooks/` blocks more. Project rules take effect only in a trusted workspace. Run `droid rules check` after you edit them.
 
-Some keys from the original Claude-only guide do not apply to Droid: `permissions.defaultMode`, `claude --permission-mode`, `promptCacheTtl`, `subagentPromptCacheTtl`, `autoCompactWindow`, `skillListingBudgetFraction`, and `skillListingMaxDescChars`. Droid's settings reference does not list them, so do not add them to your settings.
+Some keys from the original upstream guide do not apply to Droid: `permissions.defaultMode`, `claude --permission-mode`, `promptCacheTtl`, `subagentPromptCacheTtl`, `autoCompactWindow`, `skillListingBudgetFraction`, and `skillListingMaxDescChars`. Droid's settings reference does not list them, so do not add them to your settings.
 
 Droid's `sandbox` setting isolates shell commands from your filesystem and network. Read the Sandbox page on docs.factory.ai before you turn it on.
 

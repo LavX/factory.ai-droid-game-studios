@@ -588,7 +588,7 @@ sys.stdout.buffer.write(("CCGS-JSON-CHECKED\n" + "".join("B\t" + p + "\n" for p 
         # Block, do not warn. Stderr from a hook that exits 0 goes to the debug
         # log only -- Droid never sees it -- so the old warning let unvalidated
         # data through in silence. A check that cannot run must not pass.
-        echo "BLOCKED: $(printf '%s\n' "$DATA_FILES" | grep -c .) staged data file(s) could not be validated -- no Python 3 interpreter found (tried python, python3, py). CCGS needs Python for its config reads too; install it and commit again." >&2
+        echo "BLOCKED: $(printf '%s\n' "$DATA_FILES" | grep -c .) staged data file(s) could not be validated -- no Python 3 interpreter found (tried python, python3, py). Game Studios needs Python for its config reads too; install it and commit again." >&2
         exit 2
     fi
 fi

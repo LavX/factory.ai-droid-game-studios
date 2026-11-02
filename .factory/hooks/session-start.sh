@@ -34,7 +34,7 @@ fi
 # Outputs context information that Droid sees when a session begins
 #
 # Input schema (SessionStart): stdin is expected to carry one line of JSON. Upstream
-# (Claude Code) recorded that on real harness events: session_id, transcript_path,
+# recorded that on real harness events: session_id, transcript_path,
 # cwd, hook_event_name and `source` ("clear", "compact"). Factory's SessionStart
 # payload has not been verified in this port, so the read below stays bounded.
 # Do NOT read stdin here unboundedly -- the harness may leave it open, and a
@@ -53,7 +53,7 @@ fi
 # again with source `compact`, and PostCompact output never reaches the
 # conversation, so a checkpoint seen after /compact came from this script.
 
-echo "=== Game Studios (Factory Droid port) — Session Context ==="
+echo "=== Game Studios for Factory Droid — Session Context ==="
 
 # The destructive-command guard needs jq. Without jq it allows every call, so
 # say so here rather than leave that check silently off. Only the permission

@@ -1,4 +1,4 @@
-# Claude Code Game Studios (Factory Droid port) -- Complete Workflow Guide
+# Game Studios for Factory Droid -- Complete Workflow Guide
 
 > **How to go from zero to a shipped game using the Agent Architecture.**
 >
@@ -72,11 +72,11 @@ This guided onboarding asks where you are and routes you to the right phase:
 ### Step 3: Verify Hooks Are Working
 
 Start a new Factory Droid session. The `session-start.sh` hook prints a short
-context block. The example below is an upstream Claude Code example, not captured
-output from this port; the exact text may differ:
+context block. The example below shows the session header this port prints. It is
+not a captured session, so the exact text may differ:
 
 ```
-=== Claude Code Game Studios -- Session Context ===
+=== Game Studios for Factory Droid — Session Context ===
 Branch: main
 Recent commits:
   abc1234 Initial commit

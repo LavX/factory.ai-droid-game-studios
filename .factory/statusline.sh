@@ -31,7 +31,7 @@ else
 fi
 [ -n "$CCGS_ROOT" ] && cd "$CCGS_ROOT" 2>/dev/null || true
 
-# Game Studios (Factory Droid port) — Status Line
+# Game Studios for Factory Droid — Status Line
 # Receives JSON on stdin, outputs a single-line status.
 #
 # Segments: ctx% | model | production stage [| Epic > Feature > Task]

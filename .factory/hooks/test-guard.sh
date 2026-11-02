@@ -35,11 +35,11 @@ cat > "$crlf_dir/jq" <<'WRAP'
 WRAP
 chmod +x "$crlf_dir/jq"
 CRLF_PATH="$crlf_dir:$PATH"
-# Stand-in that fails only the adapter's rewrite, the one filter that names claude_tool.
+# Stand-in that fails only the adapter's rewrite, the one filter that names upstream_tool.
 cat > "$fail_dir/jq" <<'WRAP'
 #!/usr/bin/env bash
 case "$*" in
-  *claude_tool*) exit 5 ;;
+  *upstream_tool*) exit 5 ;;
 esac
 exec "$REAL_JQ" "$@"
 WRAP

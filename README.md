@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">Claude Code Game Studios (Factory Droid port)</h1>
+  <h1 align="center">Game Studios for Factory Droid</h1>
   <p align="center">
     Turn a single Factory Droid session into a full game development studio.
     <br />
@@ -14,13 +14,11 @@
   <a href=".factory/hooks"><img src="https://img.shields.io/badge/hooks-15-orange" alt="15 Hooks"></a>
   <a href=".factory/rules"><img src="https://img.shields.io/badge/rules-14-red" alt="14 Rules"></a>
   <a href="https://docs.factory.ai"><img src="https://img.shields.io/badge/built%20for-Factory%20Droid-f5f5f5" alt="Built for Factory Droid"></a>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20this%20project-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-Support%20this%20project-ea4aaa?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
 </p>
 
 ---
 
-> **Unofficial port.** This is an unofficial port of Claude Code Game Studios 1.2.0 (upstream commit `05ad7c8`) to Factory Droid. It is not made or endorsed by the upstream author. Agents are in `.factory/droids/`, skills are in `.factory/skills/`, and hooks are configured in `.factory/hooks.json`. `AGENTS.md` lists what differs from the Claude Code version. Issues with this port go to this fork. Issues with the upstream framework go to [Donchitos](https://github.com/Donchitos/Claude-Code-Game-Studios/issues).
+> **Unofficial port.** This is an unofficial port of Claude Code Game Studios 1.2.0 (upstream commit `05ad7c8`) to Factory Droid. It is not made or endorsed by the upstream author. Agents are in `.factory/droids/`, skills are in `.factory/skills/`, and hooks are configured in `.factory/hooks.json`. `AGENTS.md` lists what differs from the upstream version. Issues with this port go to this fork. Issues with the upstream framework go to [Donchitos](https://github.com/Donchitos/Claude-Code-Game-Studios/issues).
 
 ## Why This Exists
 
@@ -47,7 +45,6 @@ The result: you still make every decision, but now you have a team that asks the
 - [Customization](#customization)
 - [Platform Support](#platform-support)
 - [Community](#community)
-- [Supporting This Project](#supporting-this-project)
 - [License](#license)
 
 ---
@@ -265,7 +262,7 @@ for step-by-step migration instructions, a breakdown of what changed between
 versions, and which files are safe to overwrite vs. which need a manual merge.
 
 `CHANGELOG.md` and `UPGRADING.md` are upstream files, kept as they were. Their
-upgrade steps are written for Claude Code and do not apply to this port.
+upgrade steps are written for the upstream project and do not apply to this port.
 
 ## Project Structure
 
@@ -303,7 +300,7 @@ The game folders in this tree (`src/`, `assets/`, `tests/`, `tools/`, `prototype
 
 ### Testing your customizations
 
-CCGS is a template you are meant to edit. `studio-tests/` is how
+Game Studios is a template you are meant to edit. `studio-tests/` is how
 you check that an edited or newly written skill still holds up — a catalog of all
 74 skills and 49 agents, per-category quality rubrics, behavioral specs, and
 templates for writing specs of your own.
@@ -477,25 +474,6 @@ Upstream community links, which do not cover this port:
 
 - **Discussions** — [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions) for questions, ideas, and showcasing what you've built
 - **Issues** — [Bug reports and feature requests](https://github.com/Donchitos/Claude-Code-Game-Studios/issues)
-
----
-
-## Supporting This Project
-
-Claude Code Game Studios is free and open source. The sponsorship links below
-support the upstream author, Donchitos. They are not a way to support this
-Factory Droid port, and upstream support does not cover the port:
-
-<p>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  &nbsp;
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
-</p>
-
-- **[Buy Me a Coffee](https://www.buymeacoffee.com/donchitos3)** — one-time support
-- **[GitHub Sponsors](https://github.com/sponsors/Donchitos)** — recurring support through GitHub
-
-Sponsorships help fund time spent maintaining skills, adding new agents, keeping up with Claude Code and engine API changes, and responding to community issues.
 
 ---
 

@@ -12,10 +12,8 @@
   checks 2-5; the frontmatter checks (1, 6, 7) read `SKILL.md` only. Per-skill
   results are COMPLIANT, WARNINGS, NON-COMPLIANT or NOT ASSESSED. It also runs
   `.factory/scripts/agent-check.sh` and reports its agent and delegation lines as
-  observations that never change a verdict, and runs
-  `.factory/scripts/compat-inventory.sh` and reports each place the file depends on
-  something only Factory Droid provides, by feature, the same way; given an agent
-  name, it reports only those observations, with no verdict. Writes nothing.
+  observations that never change a verdict; given an agent name, it reports only
+  those observations, with no verdict. Writes nothing.
 - **spec** `[skill-or-agent-name]`: resolves the name through
   `studio-tests/catalog.yaml`, reads the file and the spec at the
   entry's `spec:` path, plus `AGENTS.md` and every file it imports with `@path`,

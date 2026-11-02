@@ -13,7 +13,7 @@ its body, before it reads any config value:
 
 Skills that resolve a per-system tier pass the system name: `resolve_config combat`.
 
-Factory skills do not use `!` preprocessing lines. The upstream Claude Code
+Factory skills do not use `!` preprocessing lines. The upstream
 form ran the command before the model saw the skill. In this port, the skill
 runs the command itself, as a step.
 
@@ -33,7 +33,7 @@ a skill runs follow the normal approval flow.
 ## The block
 
 ```
-=== CCGS Resolved Config ===
+=== Game Studios Resolved Config ===
 review_mode: lean (production/review-mode.txt)
 automation: guided (project.local.yaml)
 workflow: standard (project.yaml)
@@ -49,7 +49,7 @@ system_overrides: combat=full inventory=minimal
 notes: none
 Values above are fully resolved (local -> yaml -> legacy -> default). Use as-is.
 An inline --review flag, if passed, overrides review_mode.
-=== end CCGS config ===
+=== end Game Studios config ===
 ```
 
 Every knob line ends with its **provenance** in parentheses. That is what makes a

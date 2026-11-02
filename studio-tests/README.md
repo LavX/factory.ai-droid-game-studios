@@ -1,9 +1,9 @@
 # Studio Tests
 
-Quality assurance infrastructure for the **Claude Code Game Studios** framework, as ported to Factory Droid.
+Quality assurance infrastructure for the **Game Studios** framework, as ported to Factory Droid.
 Tests the skills and agents themselves — not any game built with them.
 
-**This ships as part of the template, and it is meant to.** CCGS is a template
+**This ships as part of the template, and it is meant to.** Game Studios is a template
 you are expected to customize — edit a skill, add your own, retune an agent. This
 folder is how you check that what you changed still holds up: `catalog.yaml`
 tracks all 74 skills and 49 agents, `quality-rubric.md` defines per-category
@@ -23,7 +23,7 @@ you write. Driven by `/skill-test` and `/skill-improve`.
 > `/skill-test` and `/skill-improve` read this folder by path, so removing it is a
 > real trade, not a free cleanup — the table above states the actual cost.
 
-**Port note.** The agent specs were written for the upstream Claude Code runtime. Where a spec mentions upstream skill preloading (`release-manager.md` does), this port does not preload skills: the droid reads the skill file itself when the workflow calls for it. `AGENTS.md` lists what the port does not carry over.
+**Port note.** The agent specs were written for the upstream framework's runtime. Where a spec mentions upstream skill preloading (`release-manager.md` does), this port does not preload skills: the droid reads the skill file itself when the workflow calls for it. `AGENTS.md` lists what the port does not carry over.
 
 ---
 

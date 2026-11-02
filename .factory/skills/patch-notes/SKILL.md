@@ -27,7 +27,7 @@ before Phase 2 and stop if it fails.
 2. **Classify every commit in the range, one at a time**, into exactly one of:
    - **Game** — changes the game the player plays: mechanics, content, balance,
      art, audio, UI, a bug in any of those.
-   - **Framework / maintenance** — changes CCGS itself or the project's tooling:
+   - **Framework / maintenance** — changes Game Studios itself or the project's tooling:
      subjects naming skills, hooks, agents, the test plan, CI, the framework's
      own docs. **Excluded from player-facing notes, but not a reason to stop.**
    - **Unclear** — treat as framework. A commit you cannot confidently place is

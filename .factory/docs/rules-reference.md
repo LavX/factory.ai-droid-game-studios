@@ -27,8 +27,8 @@ alone.
 This port has no `InstructionsLoaded` equivalent, so no log records which
 instruction files were loaded. Check the rule files you need by reading them.
 
-**Globs match regardless of case (upstream observation).** The upstream Claude
-Code runtime, version 2.1.282, matched `paths:` gitignore-style and
+**Globs match regardless of case (upstream observation).** The upstream
+runtime, version 2.1.282, matched `paths:` gitignore-style and
 case-insensitively. That was observed upstream, not documented, and this port
 has not verified it for Factory Droid. If it holds, so
 `Assets/**/UI/**` also matches a Godot project's `assets/ui/` art. That is why
